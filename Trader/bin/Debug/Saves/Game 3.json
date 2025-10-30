@@ -1,0 +1,183 @@
+{
+  "PlayerBalance": 1058.7151999999999,
+  "Inventory": [],
+  "CityOffers": [
+    {
+      "Name": "Cheese",
+      "Price": 99.26,
+      "Quantity": 2,
+      "Freshness": 0,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Cheese.png",
+      "Type": 0,
+      "MaxDemand": 7
+    },
+    {
+      "Name": "CocaCola",
+      "Price": 71.78,
+      "Quantity": 4,
+      "Freshness": 0,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/CocaCola.png",
+      "Type": 4,
+      "MaxDemand": 5
+    },
+    {
+      "Name": "Lemon",
+      "Price": 44.31,
+      "Quantity": 6,
+      "Freshness": 0,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Lemon.png",
+      "Type": 8,
+      "MaxDemand": 2
+    },
+    {
+      "Name": "Orange",
+      "Price": 80.42,
+      "Quantity": 1,
+      "Freshness": 0,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Orange.png",
+      "Type": 6,
+      "MaxDemand": 7
+    },
+    {
+      "Name": "Strawberry",
+      "Price": 52.94,
+      "Quantity": 3,
+      "Freshness": 0,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Strawberry.png",
+      "Type": 11,
+      "MaxDemand": 7
+    },
+    {
+      "Name": "Passionfruit",
+      "Price": 89.06,
+      "Quantity": 7,
+      "Freshness": 0,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Passionfruit.png",
+      "Type": 9,
+      "MaxDemand": 5
+    }
+  ],
+  "ToRemove": [
+    {
+      "Name": "Pomegranate",
+      "Price": 0.0,
+      "Quantity": 2,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Pomegranate.png",
+      "Type": 5,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Pomegranate",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Pomegranate.png",
+      "Type": 5,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "CocaCola",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/CocaCola.png",
+      "Type": 4,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "MapleSyrup",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/MapleSyrup.png",
+      "Type": 2,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "MapleSyrup",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/MapleSyrup.png",
+      "Type": 2,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Strawberry",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Strawberry.png",
+      "Type": 11,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Fish",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Fish.png",
+      "Type": 1,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Cheese",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Cheese.png",
+      "Type": 0,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Pomegranate",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Pomegranate.png",
+      "Type": 5,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Pomegranate",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Pomegranate.png",
+      "Type": 5,
+      "MaxDemand": 2147483647
+    }
+  ],
+  "SoldThisSession": {
+    "Watermelon": 2,
+    "Pomegranate": 6,
+    "MapleSyrup": 4,
+    "Strawberry": 5,
+    "Cherry": 2,
+    "Fish": 6,
+    "Lemon": 3,
+    "Orange": 3,
+    "CocaCola": 5,
+    "Cheese": 2,
+    "Passionfruit": 3,
+    "BreadPretzel": 3
+  },
+  "CurrentCity": "Rome"
+}

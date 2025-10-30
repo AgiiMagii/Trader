@@ -1,0 +1,120 @@
+{
+  "PlayerBalance": 649.68,
+  "Inventory": [],
+  "CityOffers": [
+    {
+      "Name": "Cherry",
+      "Price": 17.54,
+      "Quantity": 5,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Cherry.png",
+      "Type": 7,
+      "MaxDemand": 5
+    },
+    {
+      "Name": "Pomegranate",
+      "Price": 53.65,
+      "Quantity": 9,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Pomegranate.png",
+      "Type": 5,
+      "MaxDemand": 3
+    },
+    {
+      "Name": "Watermelon",
+      "Price": 26.17,
+      "Quantity": 2,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Watermelon.png",
+      "Type": 10,
+      "MaxDemand": 5
+    },
+    {
+      "Name": "Lemon",
+      "Price": 62.29,
+      "Quantity": 6,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Lemon.png",
+      "Type": 8,
+      "MaxDemand": 3
+    },
+    {
+      "Name": "Cheese",
+      "Price": 34.81,
+      "Quantity": 8,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Cheese.png",
+      "Type": 0,
+      "MaxDemand": 5
+    },
+    {
+      "Name": "CocaCola",
+      "Price": 97.34,
+      "Quantity": 1,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/CocaCola.png",
+      "Type": 4,
+      "MaxDemand": 7
+    }
+  ],
+  "ToRemove": [
+    {
+      "Name": "BreadPretzel",
+      "Price": 0.0,
+      "Quantity": 7,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/BreadPretzel.png",
+      "Type": 3,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "BreadPretzel",
+      "Price": 0.0,
+      "Quantity": 4,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/BreadPretzel.png",
+      "Type": 3,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Passionfruit",
+      "Price": 0.0,
+      "Quantity": 1,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Passionfruit.png",
+      "Type": 9,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Strawberry",
+      "Price": 0.0,
+      "Quantity": 3,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Strawberry.png",
+      "Type": 11,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Cherry",
+      "Price": 0.0,
+      "Quantity": 6,
+      "Freshness": 3,
+      "TicksToExpire": 0,
+      "ImagePath": "/Controls/Cherry.png",
+      "Type": 7,
+      "MaxDemand": 2147483647
+    }
+  ],
+  "SoldThisSession": {},
+  "CurrentCity": "Paris"
+}

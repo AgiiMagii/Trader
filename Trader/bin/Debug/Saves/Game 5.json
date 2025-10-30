@@ -1,0 +1,69 @@
+{
+  "PlayerBalance": 359.3356,
+  "Inventory": [],
+  "CityOffers": [
+    {
+      "Name": "Orange",
+      "Price": 28.58,
+      "Quantity": 4,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Orange.png",
+      "Type": 6,
+      "MaxDemand": 9
+    },
+    {
+      "Name": "CocaCola",
+      "Price": 64.69,
+      "Quantity": 9,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/CocaCola.png",
+      "Type": 4,
+      "MaxDemand": 6
+    },
+    {
+      "Name": "Lemon",
+      "Price": 37.22,
+      "Quantity": 1,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Lemon.png",
+      "Type": 8,
+      "MaxDemand": 9
+    },
+    {
+      "Name": "Watermelon",
+      "Price": 45.86,
+      "Quantity": 7,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Controls/Watermelon.png",
+      "Type": 10,
+      "MaxDemand": 3
+    },
+    {
+      "Name": "BreadPretzel",
+      "Price": 18.38,
+      "Quantity": 9,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/BreadPretzel.png",
+      "Type": 3,
+      "MaxDemand": 1
+    },
+    {
+      "Name": "Fish",
+      "Price": 54.49,
+      "Quantity": 4,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Controls/Fish.png",
+      "Type": 1,
+      "MaxDemand": 8
+    }
+  ],
+  "ToRemove": [],
+  "SoldThisSession": {},
+  "CurrentCity": "Berlin"
+}
