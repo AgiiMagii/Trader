@@ -131,27 +131,50 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Controls\Decrease.png" />
+    <Resource Include="Assets\Images\BreadPretzel.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Controls\Increase.png" />
+    <Resource Include="Assets\Images\Cheese.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Controls\BreadPretzel.png" />
-    <Resource Include="Controls\Cheese.png" />
-    <Resource Include="Controls\Cherry.png" />
-    <Resource Include="Controls\CocaCola.png" />
-    <Resource Include="Controls\Fish.png" />
-    <Resource Include="Controls\Lemon.png" />
-    <Resource Include="Controls\MapleSyrup.png" />
-    <Resource Include="Controls\Orange.png" />
-    <Resource Include="Controls\Passionfruit.png" />
-    <Resource Include="Controls\Pomegranate.png" />
-    <Resource Include="Controls\Strawberry.png" />
-    <Resource Include="Controls\Watermelon.png" />
+    <Resource Include="Assets\Images\Cherry.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Controls\Beautiful city.jpeg" />
+    <Resource Include="Assets\Images\CocaCola.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Decrease.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Fish.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Increase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Lemon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\MapleSyrup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Passionfruit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Pomegranate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Strawberry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Watermelon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Backgrounds\Beautiful city.jpeg" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -361,6 +361,9 @@
         </Setter>
         <Setter Property="BorderBrush" Value="#6033FF33"/>
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="MinWidth" Value="70"/>
     </Style>
 
     <!-- Sarkanīga -->
@@ -376,5 +379,8 @@
         </Setter>
         <Setter Property="BorderBrush" Value="#60FF3333"/>
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="MinWidth" Value="70"/>
     </Style>
 </ResourceDictionary>

@@ -23,13 +23,55 @@ namespace Trader.Controls
     /// </summary>
     public partial class MainControl : UserControl
     {
+        public string CurrentSaveFilePath { get; set; }
         public MainControl()
         {
             InitializeComponent();
         }
         public void NewGame_Click(object sender, RoutedEventArgs e)
         {
-            LoadGameControlWithState(new GameState());
+            mainButtonGrid.Visibility = Visibility.Collapsed;
+            NewGameOverlay.Visibility = Visibility.Visible;
+        }
+        private void PlayGame_Click(object sender, RoutedEventArgs e)
+        {
+            string gameName = txtGameName.Text.Trim();
+
+            if (string.IsNullOrEmpty(gameName))
+                return; // Var arī parādīt paziņojumu
+
+            if (gameName.Length > 20)
+            {
+                MessageBox.Show("Game name is too long. Max 20 characters.");
+                return;
+            }
+
+            // Slēpj overlay
+            NewGameOverlay.Visibility = Visibility.Collapsed;
+
+            // Ģenerē unikālu faila ceļu jaunajai spēlei
+            CurrentSaveFilePath = GenerateNewSaveFilePath(gameName);
+
+            // Sāk jaunu spēli ar tukšu GameState un nodod faila ceļu
+            LoadGameControlWithState(new GameState(), CurrentSaveFilePath);
+        }
+        private string GenerateNewSaveFilePath(string gameName)
+        {
+            string saveDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
+            Directory.CreateDirectory(saveDir);
+
+            string filePath;
+            int counter = 1;
+            filePath = System.IO.Path.Combine(saveDir, $"{gameName}.json");
+
+            // Ja fails jau eksistē, pievieno skaitli
+            while (File.Exists(filePath))
+            {
+                filePath = System.IO.Path.Combine(saveDir, $"Game {gameName} ({counter}).json");
+                counter++;
+            }
+
+            return filePath;
         }
         public void ExitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -72,20 +114,22 @@ namespace Trader.Controls
                 MessageBox.Show("Failed to load saved game.");
             }
         }
-        private void LoadGameControlWithState(GameState state, string savePath=null)
+        private void LoadGameControlWithState(GameState state, string savePath)
         {
             Window mainWindow = Application.Current.MainWindow;
-            GameControl gameControl = new GameControl()
+
+            GameControl gameControl = new GameControl(state)
             {
-                CurrentSaveFilePath = savePath
+                CurrentSaveFilePath = savePath // šeit faila ceļš nonāk līdz GameControl
             };
-            gameControl.LoadState(state);
+
             gameControl.BackToMainMenuRequested += () =>
             {
                 mainWindow.Content = this;
                 mainButtonGrid.Visibility = Visibility.Visible;
                 SavedGamesOverlay.Visibility = Visibility.Collapsed;
             };
+
             mainWindow.Content = gameControl;
         }
         private void Close_Click(object sender, RoutedEventArgs e)

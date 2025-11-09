@@ -19,7 +19,7 @@
             <!-- Bottom bar -->
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">
-            <Image Source="/Controls/Beautiful city.jpeg"
+            <Image Source="/Assets/Backgrounds/Beautiful city.jpeg"
                Stretch="UniformToFill"
                Opacity="0.9"
                Panel.ZIndex="0"/>
@@ -69,8 +69,8 @@
                         <Button Content="Tokyo" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="2" FontSize="20" Foreground="DarkSlateGray"/>
                         <Button Content="Rome" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="2" FontSize="20" Foreground="DarkSlateGray"/>
                         <Button Content="Sydney" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="2" FontSize="20" Foreground="DarkSlateGray"/>
-                </UniformGrid>
-            </ScrollViewer>
+                    </UniformGrid>
+                </ScrollViewer>
             </Border>
 
             <!-- ProductsGrid -->
@@ -93,57 +93,57 @@
                 <!-- Fona bilde + pogas -->
                 <Grid Grid.Row="1">
                     <!-- Bilde -->
-                    
+
 
                     <!-- Pogu tīkls pa virsu -->
                     <Grid VerticalAlignment="Bottom" Margin="10">
                         <UniformGrid Rows="2" Columns="3" x:Name="OfferGrid" Margin="10"
                      Panel.ZIndex="1">
-                        <Button x:Name="ProductButton1" Tag="btn" Margin="5" 
+                            <Button x:Name="ProductButton1" Tag="btn" Margin="5" 
                     Style="{StaticResource GlassButtonStyle}" FontSize="20"
                     Click="ProductButton_Click">
-                            <StackPanel>
-                                <TextBlock x:Name="ProductQuantity1"/>
-                                <Image x:Name="ProductImage1" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
-                                <TextBlock x:Name="ProductPrice1" Text="0.00 €" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                                <StackPanel>
+                                    <TextBlock x:Name="ProductQuantity1"/>
+                                    <Image x:Name="ProductImage1" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
+                                    <TextBlock x:Name="ProductPrice1" Text="0.00 €" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button x:Name="ProductButton2" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
-                            <StackPanel>
-                                <TextBlock x:Name="ProductQuantity2"/>
-                                <Image x:Name="ProductImage2" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
-                                <TextBlock x:Name="ProductPrice2" Text="0.00 €" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                                <StackPanel>
+                                    <TextBlock x:Name="ProductQuantity2"/>
+                                    <Image x:Name="ProductImage2" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
+                                    <TextBlock x:Name="ProductPrice2" Text="0.00 €" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button x:Name="ProductButton3" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
-                            <StackPanel>
-                                <TextBlock x:Name="ProductQuantity3"/>
-                                <Image x:Name="ProductImage3" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
-                                <TextBlock x:Name="ProductPrice3" Text="0.00 €" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                                <StackPanel>
+                                    <TextBlock x:Name="ProductQuantity3"/>
+                                    <Image x:Name="ProductImage3" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
+                                    <TextBlock x:Name="ProductPrice3" Text="0.00 €" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button x:Name="ProductButton4" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
-                            <StackPanel>
-                                <TextBlock x:Name="ProductQuantity4"/>
-                                <Image x:Name="ProductImage4" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
-                                <TextBlock x:Name="ProductPrice4" Text="0.00 €" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                                <StackPanel>
+                                    <TextBlock x:Name="ProductQuantity4"/>
+                                    <Image x:Name="ProductImage4" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
+                                    <TextBlock x:Name="ProductPrice4" Text="0.00 €" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button x:Name="ProductButton5" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
-                            <StackPanel>
-                                <TextBlock x:Name="ProductQuantity5"/>
-                                <Image x:Name="ProductImage5" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
-                                <TextBlock x:Name="ProductPrice5" Text="0.00 €" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                                <StackPanel>
+                                    <TextBlock x:Name="ProductQuantity5"/>
+                                    <Image x:Name="ProductImage5" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
+                                    <TextBlock x:Name="ProductPrice5" Text="0.00 €" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button x:Name="ProductButton6" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
-                            <StackPanel>
-                                <TextBlock x:Name="ProductQuantity6"/>
-                                <Image x:Name="ProductImage6" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
-                                <TextBlock x:Name="ProductPrice6" Text="0.00 €" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </UniformGrid>
+                                <StackPanel>
+                                    <TextBlock x:Name="ProductQuantity6"/>
+                                    <Image x:Name="ProductImage6" Stretch="Uniform" MaxWidth="120" MaxHeight="120"/>
+                                    <TextBlock x:Name="ProductPrice6" Text="0.00 €" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </UniformGrid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -151,53 +151,134 @@
             <!-- TradingGrid -->
 
             <Border Grid.Column="2"
-                    Background="#80D3D3D3"
+        Background="#80D3D3D3"
         Margin="5"
         Style="{StaticResource BorderStyle1}">
-                <Grid x:Name="TradingGrid">
+
+                <Grid x:Name="TradingGrid" Margin="10">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <!-- Product name -->
                         <RowDefinition Height="Auto"/>
-                        <!-- Title -->
+                        <!-- Quantity controls -->
+                        <RowDefinition Height="100"/>
+                        <!-- Messages -->
                         <RowDefinition Height="Auto"/>
-                        <!-- Controls -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- Info -->
+                        <!-- Prices -->
                         <RowDefinition Height="*"/>
-                        <!-- Big text -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- Buy/Sell -->
+                        <!-- Buy Sell Buttons -->
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" x:Name="lblProductName" Grid.ColumnSpan="3" 
-       Content="" FontSize="18"
-       HorizontalContentAlignment="Center"/>
+                    <!-- Product name -->
+                    <Label Grid.Row="0"
+               x:Name="lblProductName"
+               FontSize="20"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               Margin="0,0,0,10"/>
 
-                    <!-- +/- buttons -->
-                    <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource GlassSmallButton}" Margin="5" Content="−" Click="QuantityButton_Click" Foreground="Black"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtQuantity" Text="0" TextAlignment="Center" FontSize="16" Margin="5"/>
-                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource GlassSmallButton}" Margin="5" Content="+" Click="QuantityButton_Click" Foreground="Black"/>
+                    <!-- Quantity controls -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                        <Button Content="−"
+                    Style="{StaticResource GlassSmallButton}"
+                    Width="40"
+                    Height="40"
+                    Margin="5"
+                    Click="QuantityButton_Click"/>
 
-                    <!-- Info row -->
-                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
-                   x:Name="txtTotalPrice"
-                   Text="0.00" FontSize="16" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="2" Grid.Column="2" 
-                Content="Buy" Style="{StaticResource GlassSmallButton}" Margin="5" Click="BuyButton_Click" Foreground="DarkSlateGray" Height="50" Width="80"/>
+                        <Label x:Name="lblQuantity"
+                   Content="0"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Width="80"
+                   Height="40"
+                   Background="White"
+                   BorderBrush="Gray"
+                   BorderThickness="1"
+                   Margin="5"/>
 
-                    <!-- Big row -->
-                    <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="txtMessages"
-           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Button Content="+"
+                    Style="{StaticResource GlassSmallButton}"
+                    Width="40"
+                    Height="40"
+                    Margin="5"
+                    Click="QuantityButton_Click"/>
+                    </StackPanel>
 
-                    <!-- Buy/Sell -->
-                    <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="totalSellPrice"
-                   Text="0.00" FontSize="16" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="4" Grid.Column="2" x:Name="buttSell" Click="SellButton_Click"
-                Content="Sell" Style="{StaticResource GlassSmallButton}" Margin="5" Foreground="DarkSlateGray" Height="50" Width="80"/>
+                    <!-- Messages -->
+                    <Label Grid.Row="3"
+               x:Name="lblMessage"
+               Content=""
+               FontSize="15"
+               FontWeight="DemiBold"
+               Foreground="Black"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               Margin="0,0,0,10"/>
+
+                    <!-- Prices -->
+                    <Grid Grid.Row="2" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                            <Label Content="Buy price:"
+                       FontWeight="SemiBold"
+                       FontSize="14"
+                       Foreground="DarkSlateGray"
+                       HorizontalAlignment="Center"/>
+                            <Label x:Name="lblBuyPrice"
+                       Content="0.00"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                            <Label Content="Sell price:"
+                       FontWeight="SemiBold"
+                       FontSize="14"
+                       Foreground="DarkSlateGray"
+                       HorizontalAlignment="Center"/>
+                            <Label x:Name="lblSellPrice"
+                       Content="0.00"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Buttons -->
+                    <Grid Grid.Row="4" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="btnBuy"
+            Grid.Column="0"
+            Content="Buy"
+            Style="{StaticResource GlassButtonRed}"
+            Margin="10"
+            Height="60"
+            Foreground="DarkSlateGray"
+            Click="BuyButton_Click" VerticalAlignment="Bottom"/>
+
+                        <Button x:Name="btnSell"
+            Grid.Column="1"
+            Content="Sell"
+            Style="{StaticResource GlassButtonGreen}"
+            Margin="10"
+            Height="60"
+            Foreground="DarkSlateGray"
+            Click="SellButton_Click" VerticalAlignment="Bottom"/>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

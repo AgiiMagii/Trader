@@ -16,6 +16,7 @@ namespace Trader.Lib
         public List<Product> ToRemove { get; set; }
         public Dictionary<string, int> SoldThisSession { get; set; }
         public string CurrentCity { get; set; }
+        public string PlayerName { get; set; }
 
         public GameState()
         {

@@ -11,29 +11,29 @@ namespace Trader.Lib
     {
         public enum Products
         {
-            [Description("/Controls/Cheese.png")]
+            [Description("/Assets/Images/Cheese.png")]
             Cheese,
-            [Description("/Controls/Fish.png")]
+            [Description("/Assets/Images/Fish.png")]
             Fish,
-            [Description("/Controls/MapleSyrup.png")]
+            [Description("/Assets/Images/MapleSyrup.png")]
             MapleSyrup,
-            [Description("/Controls/BreadPretzel.png")]
+            [Description("/Assets/Images/BreadPretzel.png")]
             BreadPretzel,
-            [Description("/Controls/CocaCola.png")]
+            [Description("/Assets/Images/CocaCola.png")]
             CocaCola,
-            [Description("/Controls/Pomegranate.png")]
+            [Description("/Assets/Images/Pomegranate.png")]
             Pomegranate,
-            [Description("/Controls/Orange.png")]
+            [Description("/Assets/Images/Orange.png")]
             Orange,
-            [Description("/Controls/Cherry.png")]
+            [Description("/Assets/Images/Cherry.png")]
             Cherry,
-            [Description("/Controls/Lemon.png")]
+            [Description("/Assets/Images/Lemon.png")]
             Lemon,
-            [Description("/Controls/Passionfruit.png")]
+            [Description("/Assets/Images/Passionfruit.png")]
             Passionfruit,
-            [Description("/Controls/Watermelon.png")]
+            [Description("/Assets/Images/Watermelon.png")]
             Watermelon,
-            [Description("/Controls/Strawberry.png")]
+            [Description("/Assets/Images/Strawberry.png")]
             Strawberry
         }
         public enum Freshness

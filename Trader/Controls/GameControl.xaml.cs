@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Trader.Lib;
 using static System.Windows.Forms.AxHost;
 using static Trader.Lib.Enums;
@@ -35,15 +36,15 @@ namespace Trader.Controls
         private List<Product> cityOffers = new List<Product>();
         private List<Product> toRemove = new List<Product>();
         private GameState CurrentState;
-        public GameControl()
+        private DispatcherTimer messageTimer;
+        public GameControl(GameState initialState = null)
         {
             InitializeComponent();
-            CurrentState = new GameState(); //inicializē tukšu spēles stāvokli
-            UpdateUI();
-        }
-        public void LoadState(GameState state)
-        {
-            CurrentState = state; //iestata saņemto spēles stāvokli kā pašreizējo stāvokli
+            if (initialState != null)
+                CurrentState = initialState;
+            else
+                CurrentState = new GameState();
+
             UpdateUI();
         }
         public void GameControl_OnLoaded(object sender, RoutedEventArgs e)
@@ -79,7 +80,7 @@ namespace Trader.Controls
                     ChangeConditionAndTick();
                 }
             }
-            txtMessages.Text = "";
+            lblMessage.Content = "";
             CheckPlayerBalance();
         }
         private void UpdateOfferButtonUI(Button btn, Product product) //aizpildam offer pogas saturu
@@ -98,7 +99,7 @@ namespace Trader.Controls
         {
             if (sender is Button button)
             {
-                int currentQty = int.TryParse(txtQuantity.Text, out int qty) ? qty : 0; //nolasa pašreizējo daudzumu daudzuma lauciņā
+                int currentQty = int.TryParse(lblQuantity.Content.ToString(), out int qty) ? qty : 0; //nolasa pašreizējo daudzumu daudzuma lauciņā
 
                 if (lblProductName.Content is string productName) //nolasa izvēlēto produktu, jauns produkts ir izvēlēts
                 {
@@ -108,7 +109,7 @@ namespace Trader.Controls
                     {
                         if ((button.Content as string) == "+") //ja nospiesta plus poga
                         {
-                            txtQuantity.Text = (currentQty + 1).ToString(); //palielina daudzumu par 1
+                            lblQuantity.Content = (currentQty + 1).ToString(); //palielina daudzumu par 1
 
                             // Tiklīdz izvēlētais produkts ir arī inventārā, rādam info par city demand
                             Product invProduct = inventory.FirstOrDefault(p => p.Name == productName); //atrodam inventārā izvēlētā produkta objektu
@@ -117,23 +118,23 @@ namespace Trader.Controls
                                 int remainingToSell = cityOffer.MaxDemand; //pilsētas pieprasījums pēc šī produkta (randoma vērtība no 1-10)
                                 if (remainingToSell <= 0) //ja pieprasījums ir 0 vai mazāks, tad pilsēta vairs nevēlas šo produktu
                                 {
-                                    txtMessages.Text = $"The city doesn't want any more {invProduct.Name}.";
+                                    lblMessage.Content = $"The city doesn't want any more {invProduct.Name}.";
                                 }
                                 else
                                 {
-                                    txtMessages.Text = $"City will accept up to {remainingToSell} units of {invProduct.Name}.";
+                                    lblMessage.Content = $"City will accept up to {remainingToSell} units of {invProduct.Name}.";
                                 }
                             }
                             else
                             {
                                 // Citi paziņojumi pirkšanai, ja nepieciešams
-                                txtMessages.Text = "";
+                                lblMessage.Content = "";
                             }
                         }
                         else
                         {
                             if (currentQty > 0) //ja nospiesta mīnus poga un daudzums ir lielāks par 0
-                                txtQuantity.Text = (currentQty - 1).ToString(); //samazina daudzumu par 1
+                                lblQuantity.Content = (currentQty - 1).ToString(); //samazina daudzumu par 1
                         }
                     }
                 }
@@ -185,22 +186,22 @@ namespace Trader.Controls
         private void CountTotalCost()
         {
             // aprēķina kopējo pirkšanas cenu, pamatojoties uz izvēlēto produktu un daudzumu
-            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(txtQuantity.Text, out int quantity)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
-            { 
+            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(lblQuantity.Content.ToString(), out int quantity)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
+            {
                 var product = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
                 if (product != null)
                 {
                     decimal totalCost = product.Price * quantity; //aprēķina kopējo cenu
-                    txtTotalPrice.Text = $"Total Cost: {totalCost:F2}€"; //iestata kopējo cenu tekstā
+                    lblBuyPrice.Content = $"{totalCost:F2}€"; //iestata kopējo cenu tekstā
                 }
                 else
                 {
-                    txtTotalPrice.Text = "Total Cost: 0.00€";
+                    lblBuyPrice.Content = "0.00€";
                 }
             }
             else
             {
-                txtTotalPrice.Text = "Total Cost: 0.00€";
+                lblBuyPrice.Content = "0.00€";
             }
         }
         private decimal CalculateDiscountedSellPrice(decimal basePrice, Freshness freshness, int quantity) //aprēķina kopējo pārdošanas cenu, ņemot vērā svaigumu un daudzumu
@@ -262,7 +263,7 @@ namespace Trader.Controls
         }
         private void BuyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(txtQuantity.Text, out int quantityToBuy)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
+            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(lblQuantity.Content.ToString(), out int quantityToBuy)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
             {
                 Product selectedProduct = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
                 if (selectedProduct == null)
@@ -311,8 +312,9 @@ namespace Trader.Controls
                     selectedProduct.Quantity -= quantityToBuy; //samazina izvēlētā produkta daudzumu piedāvājumā
 
                     UpdateCityOfferUI(selectedProduct); //atjauno konkretā produkta UI piedāvājumā, lai atspoguļotu izmaiņas
-                    txtQuantity.Text = "0";
-                    txtTotalPrice.Text = "Total Cost: 0.00€";
+                    lblQuantity.Content = "0";
+                    lblBuyPrice.Content = "0.00€";
+                    lblProductName.Content = "";
                     account.DecreaseBalance((double)totalCost); //samazina spēlētāja bilanci par kopējo pirkšanas cenu
                     UpdateBalance(); //atjauno bilances UI
                     UpdateInventoryUI(); //atjauno inventāra UI, lai atspoguļotu izmaiņas
@@ -427,7 +429,7 @@ namespace Trader.Controls
         }
         private void SellButton_Click(object sender, RoutedEventArgs e)
         {
-            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(txtQuantity.Text, out int quantityToSell)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
+            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(lblQuantity.Content.ToString(), out int quantityToSell)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
             {
                 Product invProduct = inventory
                 .Where(p => p.Name == productName)
@@ -461,9 +463,7 @@ namespace Trader.Controls
                     MessageBox.Show($"The city doesn't want any more {invProduct.Name}.");
                     return;
                 }
-
                 int allowedToSell = Math.Min(quantityToSell, remainingToSell);
-
                 if (allowedToSell < quantityToSell)
                 {
                     MessageBox.Show($"The city only accepted {allowedToSell} units of {invProduct.Name}. " +
@@ -473,7 +473,7 @@ namespace Trader.Controls
                 cityOffer.MaxDemand -= allowedToSell;
                 decimal totalRevenue = CalculateDiscountedSellPrice(cityOffer.Price, invProduct.Freshness, allowedToSell);
                 account.IncreaseBalance((double)totalRevenue);
-                totalSellPrice.Text = $"Total Sell Price: {totalRevenue:F2}€";
+                lblSellPrice.Content = $"{totalRevenue:F2}€";
 
                 if (invProduct.Quantity <= 0)
                 {
@@ -481,12 +481,13 @@ namespace Trader.Controls
                 }
 
                 UpdateBalance();
-                txtQuantity.Text = "0";
+                lblQuantity.Content = "0";
                 UpdateInventoryUI();
                 CheckPlayerBalance();
-                txtTotalPrice.Text = "Total Cost: 0.00€";
-                totalSellPrice.Text = "Total Sell Price: 0.00€";
-                txtMessages.Text = "";
+                lblBuyPrice.Content = "0.00€";
+                lblSellPrice.Content = "0.00€";
+                lblMessage.Content = "";
+                lblProductName.Content = "";
             }
             else
             {
@@ -495,18 +496,18 @@ namespace Trader.Controls
         }
         private void UpdateTotalSellPriceDisplay()
         {
-            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(txtQuantity.Text, out int quantityToSell) && quantityToSell > 0)
+            if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(lblQuantity.Content.ToString(), out int quantityToSell) && quantityToSell > 0)
             {
                 Product invProduct = inventory.FirstOrDefault(p => p.Name == productName);
                 Product cityOffer = cityOffers.FirstOrDefault(p => p.Name == productName);
                 if (invProduct != null && cityOffer != null)
                 {
                     decimal discountedPrice = CalculateDiscountedSellPrice(cityOffer.Price, invProduct.Freshness, quantityToSell);
-                    totalSellPrice.Text = $"Total Sell Price: {discountedPrice:F2}€";
+                    lblSellPrice.Content = $"{discountedPrice:F2}€";
                     return;
                 }
             }
-            totalSellPrice.Text = "Total Sell Price: 0.00€";
+            lblSellPrice.Content = "0.00€";
         }
         private void CheckPlayerBalance()
         {
@@ -525,121 +526,33 @@ namespace Trader.Controls
             if (GameOverOverlay != null)
                 GameOverOverlay.Visibility = Visibility.Collapsed;
         }
-        private void SaveGameStateToJson()
+        public void SaveGameStateToJson()
         {
-            string saveDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
-
-            if (!Directory.Exists(saveDir))
-                Directory.CreateDirectory(saveDir);
-
-            string defaultFilePath;
             if (string.IsNullOrEmpty(CurrentSaveFilePath))
-            {
-                int gameNumber = 1;
-                do
-                {
-                    defaultFilePath = System.IO.Path.Combine(saveDir, $"Game {gameNumber}.json");
-                    gameNumber++;
-                } while (File.Exists(defaultFilePath));
-            }
-            else
-            {
-                defaultFilePath = CurrentSaveFilePath;
-            }
-
-            SaveFileDialog dialog = new SaveFileDialog
-            {
-                Title = "Save Game",
-                Filter = "Game Files (*.json)|*.json|All files (*.*)|*.*",
-                InitialDirectory = saveDir,
-                FileName = System.IO.Path.GetFileName(defaultFilePath)
-            };
-
-            bool? result = dialog.ShowDialog();
-
-            if (result != true)
-                return;
-
-            string chosenFileName = System.IO.Path.GetFileName(dialog.FileName);
-            CurrentSaveFilePath = System.IO.Path.Combine(saveDir, chosenFileName);
+                throw new InvalidOperationException("Save file path is not set.");
 
             GameState gameState = new GameState
             {
                 PlayerBalance = account.GetBalance(),
-                Inventory = inventory.Select(p => new Product(false)
-                {
-                    Name = p.Name,
-                    Price = p.Price,
-                    Quantity = p.Quantity,
-                    Freshness = p.Freshness,
-                    TicksToExpire = p.TicksToExpire,
-                    Type = p.Type,
-                    MaxDemand = p.MaxDemand
-                }).ToList(),
-                CityOffers = cityOffers.Select(p => new Product(false)
-                {
-                    Name = p.Name,
-                    Price = p.Price,
-                    Quantity = p.Quantity,
-                    Freshness = p.Freshness,
-                    TicksToExpire = p.TicksToExpire,
-                    Type = p.Type,
-                    MaxDemand = p.MaxDemand
-                }).ToList(),
-                ToRemove = toRemove.Select(p => new Product(false)
-                {
-                    Name = p.Name,
-                    Price = p.Price,
-                    Quantity = p.Quantity,
-                    Freshness = p.Freshness,
-                    TicksToExpire = p.TicksToExpire,
-                    Type = p.Type,
-                    MaxDemand = p.MaxDemand
-                }).ToList(),
+                Inventory = inventory,
+                CityOffers = cityOffers,
+                ToRemove = toRemove,
                 CurrentCity = CityLabel.Content.ToString()
             };
-
-            string json = JsonConvert.SerializeObject(gameState, Formatting.Indented);
-            File.WriteAllText(CurrentSaveFilePath, json);
-
-            string fileName = System.IO.Path.GetFileNameWithoutExtension(CurrentSaveFilePath);
-            MessageBox.Show($"Game saved as {fileName}");
+            File.WriteAllText(CurrentSaveFilePath, JsonConvert.SerializeObject(gameState, Formatting.Indented));
+            ShowMessage("Game saved successfully.");
         }
         private void UpdateUI()
         {
             account.DecreaseBalance(account.GetBalance());
             account.IncreaseBalance(CurrentState.PlayerBalance);
-            inventory = CurrentState.Inventory.Select(p => new Product(false)
-            {
-                Name = p.Name,
-                Price = p.Price,
-                Quantity = p.Quantity,
-                Freshness = p.Freshness,
-                TicksToExpire = p.TicksToExpire,
-                Type = p.Type,
-                MaxDemand = p.MaxDemand
-            }).ToList();
-            cityOffers = CurrentState.CityOffers.Select(p => new Product(false)
-            {
-                Name = p.Name,
-                Price = p.Price,
-                Quantity = p.Quantity,
-                Freshness = p.Freshness,
-                TicksToExpire = p.TicksToExpire,
-                Type = p.Type,
-                MaxDemand = p.MaxDemand
-            }).ToList();
-            toRemove = CurrentState.ToRemove.Select(p => new Product(false)
-            {
-                Name = p.Name,
-                Price = p.Price,
-                Quantity = p.Quantity,
-                Freshness = p.Freshness,
-                TicksToExpire = p.TicksToExpire,
-                Type = p.Type,
-                MaxDemand = p.MaxDemand
-            }).ToList();
+
+            inventory = CurrentState.Inventory;
+            cityOffers = CurrentState.CityOffers;
+            toRemove = CurrentState.ToRemove;
+
             CityLabel.Content = CurrentState.CurrentCity;
+
             UpdateBalance();
             UpdateInventoryUI();
             GenerateCityOffer();
@@ -654,6 +567,24 @@ namespace Trader.Controls
             {
                 MessageBox.Show($"Error saving game: {ex.Message}");
             }
+        }
+        private void ShowMessage(string message)
+        {
+            lblMessage.Content = message;
+
+            if (messageTimer != null)
+                messageTimer.Stop();
+
+            messageTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3)
+            };
+            messageTimer.Tick += (s, e) =>
+            {
+                lblMessage.Content = string.Empty;
+                messageTimer.Stop();
+            };
+            messageTimer.Start();
         }
     }
 }
