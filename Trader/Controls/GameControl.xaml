@@ -15,7 +15,7 @@
             <!-- Menu -->
             <RowDefinition Height="*"/>
             <!-- Main content -->
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="120"/>
             <!-- Bottom bar -->
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">

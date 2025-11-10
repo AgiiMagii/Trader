@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trader"
         mc:Ignorable="d"
-        Title="Trader" Height="600" Width="900" MinHeight="600" MinWidth="900"
+        Title="Trader" Height="700" Width="1100" MinHeight="700" MinWidth="1100"
         Loaded="MainWindow_OnLoaded">
 
 

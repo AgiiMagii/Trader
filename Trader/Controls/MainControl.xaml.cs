@@ -180,5 +180,10 @@ namespace Trader.Controls
                 return;
             }
         }
+        private void btnCloseOverlay_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameOverlay.Visibility = Visibility.Collapsed;
+            mainButtonGrid.Visibility = Visibility.Visible;
+        }
     }
 }

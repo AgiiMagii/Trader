@@ -8,8 +8,6 @@ namespace Trader.Lib
 {
     public class GameState
     {
-        private static Random rand = new Random();
-
         public double PlayerBalance { get; set; }
         public List<Product> Inventory { get; set; }
         public List<Product> CityOffers { get; set; }
@@ -20,26 +18,6 @@ namespace Trader.Lib
 
         public GameState()
         {
-            LoadDefaults();
-        }
-        public GameState(GameState existingState)
-        {
-            if (existingState != null)
-            {
-                //PlayerBalance = existingState.PlayerBalance;
-                //Inventory = existingState.Inventory.Select(p => p.Clone()).ToList();
-                //CityOffers = existingState.CityOffers.Select(p => p.Clone()).ToList();
-                //ToRemove = existingState.ToRemove.Select(p => p.Clone()).ToList();
-                //SoldThisSession = new Dictionary<string, int>(existingState.SoldThisSession);
-                //CurrentCity = existingState.CurrentCity;
-            }
-            else
-            {
-                LoadDefaults();
-            }
-        }
-        private void LoadDefaults()
-        {
             PlayerBalance = 100;
             Inventory = new List<Product>();
             CityOffers = new List<Product>();
@@ -48,6 +26,4 @@ namespace Trader.Lib
             CurrentCity = "London";
         }
     }
-
-
 }
