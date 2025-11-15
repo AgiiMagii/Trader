@@ -14,7 +14,7 @@ namespace Trader.Lib
         public List<Product> ToRemove { get; set; }
         public Dictionary<string, int> SoldThisSession { get; set; }
         public string CurrentCity { get; set; }
-        public string PlayerName { get; set; }
+        public double BestScore { get; set; }
 
         public GameState()
         {
@@ -24,6 +24,7 @@ namespace Trader.Lib
             ToRemove = new List<Product>();
             SoldThisSession = new Dictionary<string, int>();
             CurrentCity = "London";
+            BestScore = 0;
         }
     }
 }

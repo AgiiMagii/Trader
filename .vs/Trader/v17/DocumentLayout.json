@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|c:\\users\\user\\documents\\c_sharp\\darbini\\trader\\trader\\controls\\maincontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\controls\\maincontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|c:\\users\\user\\documents\\c_sharp\\darbini\\trader\\trader\\controls\\gamecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\controls\\gamecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\trader\\controls\\maincontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\controls\\maincontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\trader\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\trader\\controls\\gamecontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\controls\\gamecontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\trader\\controls\\gamecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\controls\\gamecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\trader\\lib\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\lib\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\trader\\controls\\maincontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{44CCED63-8C63-4AE8-B905-82DC06071B72}|Trader\\Trader.csproj|solutionrelative:trader\\controls\\maincontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,36 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 77,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GameState.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Lib\\GameState.cs",
-              "RelativeDocumentMoniker": "Trader\\Lib\\GameState.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Lib\\GameState.cs",
-              "RelativeToolTip": "Trader\\Lib\\GameState.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T17:03:52.211Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "Trader\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\MainWindow.xaml",
-              "RelativeToolTip": "Trader\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-28T18:50:02.651Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "GameControl.xaml",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Controls\\GameControl.xaml",
               "RelativeDocumentMoniker": "Trader\\Controls\\GameControl.xaml",
@@ -75,13 +42,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "GameControl.xaml.cs",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Controls\\GameControl.xaml.cs",
               "RelativeDocumentMoniker": "Trader\\Controls\\GameControl.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Controls\\GameControl.xaml.cs",
-              "RelativeToolTip": "Trader\\Controls\\GameControl.xaml.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Controls\\GameControl.xaml.cs*",
+              "RelativeToolTip": "Trader\\Controls\\GameControl.xaml.cs*",
+              "ViewState": "AgIAACIAAAAwCwAAAIAXwEEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T17:48:39.157Z",
               "EditorCaption": ""
@@ -94,14 +61,14 @@
               "RelativeDocumentMoniker": "Trader\\Controls\\MainControl.xaml.cs",
               "ToolTip": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Controls\\MainControl.xaml.cs",
               "RelativeToolTip": "Trader\\Controls\\MainControl.xaml.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAADwv7oAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMAAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T13:20:37.344Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "MainControl.xaml",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\C_sharp\\Darbini\\Trader\\Trader\\Controls\\MainControl.xaml",
               "RelativeDocumentMoniker": "Trader\\Controls\\MainControl.xaml",

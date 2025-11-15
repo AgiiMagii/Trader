@@ -84,6 +84,8 @@
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Lib\Account.cs" />
+    <Compile Include="Lib\BestScoreInfo.cs" />
+    <Compile Include="Lib\BestScoreService.cs" />
     <Compile Include="Lib\Enums.cs" />
     <Compile Include="Lib\GameState.cs" />
     <Compile Include="Lib\Helper.cs" />

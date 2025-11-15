@@ -315,8 +315,10 @@
                 </StackPanel>
 
 
-                <TextBlock Grid.Column="1" x:Name="BalanceBlock" FontWeight="Bold" FontSize="14" Text=""
-           VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0"/>
+                <TextBlock Grid.Column="1" x:Name="BalanceBlock" FontWeight="Bold" FontSize="20" Text=""
+           VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,0"/>
+                <TextBlock Grid.Column="1" x:Name="BestScoreBlock" FontSize="15" Text="--"
+                           VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0"/>
             </Grid>
         </Border>
         <Grid x:Name="GameOverOverlay"

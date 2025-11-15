@@ -1,38 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Trader.Lib;
-using Trader.Controls; // Add this line if SavedGamesOverlay is in the Trader.Controls namespace
-using System.IO; // Add this using directive at the top with the others
+using System.IO;
 
 namespace Trader.Controls
 {
-    /// <summary>
-    /// Interaction logic for MainControl.xaml
-    /// </summary>
     public partial class MainControl : UserControl
     {
         public string CurrentSaveFilePath { get; set; }
         public MainControl()
         {
             InitializeComponent();
+            LoadBestScore();
         }
+        private void On_VisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                LoadBestScore();
+            }
+        } // Refresh best score on visibility change to keep it up-to-date
+        public void LoadBestScore()
+        {
+            if (!File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GameData", "best_scores.json")))
+            {
+                return;
+            }
+            string bestScoreFilePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GameData", "best_scores.json");
+            string json = File.ReadAllText(bestScoreFilePath);
+
+            BestScoreInfo bestScoreInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<BestScoreInfo>(json);
+            if (bestScoreInfo != null)
+            {
+                BestScoreTextBlock.Text = bestScoreInfo.BestScore.ToString("F2");
+                BestPlayerTextBlock.Text = bestScoreInfo.GameName;
+            }
+        } // Loads best score info from json which is kept up-to-date with other logic
         public void NewGame_Click(object sender, RoutedEventArgs e)
         {
             mainButtonGrid.Visibility = Visibility.Collapsed;
             NewGameOverlay.Visibility = Visibility.Visible;
-        }
+        } // Opens New game overlay with its menu 
+        private string GenerateNewSaveFilePath(string gameName)
+        {
+            string saveDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
+            Directory.CreateDirectory(saveDir);
+
+            string filePath;
+            int counter = 1;
+            filePath = System.IO.Path.Combine(saveDir, $"{gameName}.json");
+
+            while (File.Exists(filePath))
+            {
+                filePath = System.IO.Path.Combine(saveDir, $"Game {gameName} ({counter}).json");
+                counter++;
+            }
+
+            return filePath;
+        } // Generates unique save file path for new game with given name or default pattern
         private void PlayGame_Click(object sender, RoutedEventArgs e)
         {
             string gameName = txtGameName.Text.Trim();
@@ -46,43 +74,34 @@ namespace Trader.Controls
                 return;
             }
 
-            // Slēpj overlay
             NewGameOverlay.Visibility = Visibility.Collapsed;
 
-            // Ģenerē unikālu faila ceļu jaunajai spēlei
             CurrentSaveFilePath = GenerateNewSaveFilePath(gameName);
 
-            // Sāk jaunu spēli ar tukšu GameState un nodod faila ceļu
             LoadGameControlWithState(new GameState(), CurrentSaveFilePath);
-        }
-        private string GenerateNewSaveFilePath(string gameName)
-        {
-            string saveDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
-            Directory.CreateDirectory(saveDir);
-
-            string filePath;
-            int counter = 1;
-            filePath = System.IO.Path.Combine(saveDir, $"{gameName}.json");
-
-            // Ja fails jau eksistē, pievieno skaitli
-            while (File.Exists(filePath))
-            {
-                filePath = System.IO.Path.Combine(saveDir, $"Game {gameName} ({counter}).json");
-                counter++;
-            }
-
-            return filePath;
-        }
-        public void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        } // Opens Game control with new game state
         public void SavedGames_Click(object sender, RoutedEventArgs e)
         {
             LoadGamesList();
             mainButtonGrid.Visibility = Visibility.Collapsed;
             SavedGamesOverlay.Visibility = Visibility.Visible;
-        }
+        } // Opens Saved games overlay with menu
+        private void LoadGamesList()
+        {
+            string savesDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
+            try
+            {
+                List<string> saves = System.IO.Directory.GetFiles(savesDirectory, "*.json")
+                                           .Select(System.IO.Path.GetFileNameWithoutExtension)
+                                           .ToList();
+                SavedGamesList.ItemsSource = saves;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to access or create saves directory: " + ex.Message);
+                return;
+            }
+        } // Loads saved games list from directory
         private void LoadGame_Click(object sender, RoutedEventArgs e)
         {
             if (SavedGamesList.SelectedItem == null)
@@ -107,20 +126,19 @@ namespace Trader.Controls
             if (state != null)
             {
                 LoadGameControlWithState(state, savePath);
-                SavedGamesOverlay.Visibility = Visibility.Collapsed;
             }
             else
             {
                 MessageBox.Show("Failed to load saved game.");
             }
-        }
+        } // Sets up Game control with loaded game state from selected save and calls it
         private void LoadGameControlWithState(GameState state, string savePath)
         {
             Window mainWindow = Application.Current.MainWindow;
 
             GameControl gameControl = new GameControl(state)
             {
-                CurrentSaveFilePath = savePath // šeit faila ceļš nonāk līdz GameControl
+                CurrentSaveFilePath = savePath
             };
 
             gameControl.BackToMainMenuRequested += () =>
@@ -131,12 +149,12 @@ namespace Trader.Controls
             };
 
             mainWindow.Content = gameControl;
-        }
+        } // Helper to switch to GameControl with given state and save path
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             SavedGamesOverlay.Visibility = Visibility.Collapsed;
             mainButtonGrid.Visibility = Visibility.Visible;
-        }
+        } // Closes the Saved games overlay if player wants to go back to main
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (SavedGamesList.SelectedItem == null)
@@ -163,27 +181,15 @@ namespace Trader.Controls
             {
                 MessageBox.Show("Failed to delete saved game: " + ex.Message);
             }
-        }
-        private void LoadGamesList()
-        {
-            string savesDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Saves");
-            try
-            {
-                List<string> saves = System.IO.Directory.GetFiles(savesDirectory, "*.json")
-                                           .Select(System.IO.Path.GetFileNameWithoutExtension)
-                                           .ToList();
-                SavedGamesList.ItemsSource = saves;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to access or create saves directory: " + ex.Message);
-                return;
-            }
-        }
+        } // Deletes selected game from directory
         private void btnCloseOverlay_Click(object sender, RoutedEventArgs e)
         {
             NewGameOverlay.Visibility = Visibility.Collapsed;
             mainButtonGrid.Visibility = Visibility.Visible;
-        }
+        } // Closes the New game overlay if player wants to go back to main
+        public void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        } // Exit application
     }
 }

@@ -22,19 +22,19 @@ using static Trader.Lib.Enums;
 
 namespace Trader.Controls
 {
-    /// <summary>
-    /// Interaction logic for GameControl.xaml
-    /// </summary>
     public partial class GameControl : UserControl
     {
         public event Action GameOverTriggered;
         public event Action BackToMainMenuRequested;
         public string CurrentSaveFilePath { get; set; }
+        private string gameName = "";
+        private double newScore = 0;
         Account account = new Account();
         Random random = new Random();
         private List<Product> inventory = new List<Product>();
         private List<Product> cityOffers = new List<Product>();
         private List<Product> toRemove = new List<Product>();
+        private BestScoreService bestScoreService = new BestScoreService();
         private GameState CurrentState;
         private DispatcherTimer messageTimer;
         public GameControl(GameState initialState = null)
@@ -54,6 +54,22 @@ namespace Trader.Controls
         public void UpdateBalance()
         {
             BalanceBlock.Text = $"Balance: {account.GetBalance():F2}€";
+        }
+        private void GetNewBestScore()
+        {
+            if (account.GetBalance() > CurrentState.BestScore)
+            {
+                CurrentState.BestScore = account.GetBalance();
+            }
+            BestScoreBlock.Text = $"Best Score: {CurrentState.BestScore:F2}€";
+            SaveBestScoreInfo();
+            ShowMessage("New Best Score!");
+        }
+        public void SaveBestScoreInfo()
+        {
+            gameName = System.IO.Path.GetFileNameWithoutExtension(CurrentSaveFilePath);
+            newScore = account.GetBalance();
+            bestScoreService.UpdateBestScore(gameName, newScore);
         }
         private void CityButton_Click(object sender, RoutedEventArgs e)
         {
@@ -433,7 +449,7 @@ namespace Trader.Controls
             {
                 Product invProduct = inventory
                 .Where(p => p.Name == productName)
-                .OrderBy(p => p.Freshness)     
+                .OrderBy(p => p.Freshness)
                 .ThenBy(p => p.TicksToExpire)
                 .FirstOrDefault();
                 if (invProduct == null)
@@ -484,9 +500,9 @@ namespace Trader.Controls
                 lblQuantity.Content = "0";
                 UpdateInventoryUI();
                 CheckPlayerBalance();
+                GetNewBestScore();
                 lblBuyPrice.Content = "0.00€";
                 lblSellPrice.Content = "0.00€";
-                lblMessage.Content = "";
                 lblProductName.Content = "";
             }
             else
@@ -537,7 +553,8 @@ namespace Trader.Controls
                 Inventory = inventory,
                 CityOffers = cityOffers,
                 ToRemove = toRemove,
-                CurrentCity = CityLabel.Content.ToString()
+                CurrentCity = CityLabel.Content.ToString(),
+                BestScore = BestScoreBlock.Text.Contains(":") ? double.Parse(BestScoreBlock.Text.Split(':')[1].Trim().Replace("€", "")) : 0
             };
             File.WriteAllText(CurrentSaveFilePath, JsonConvert.SerializeObject(gameState, Formatting.Indented));
             ShowMessage("Game saved successfully.");
@@ -552,6 +569,7 @@ namespace Trader.Controls
             toRemove = CurrentState.ToRemove;
 
             CityLabel.Content = CurrentState.CurrentCity;
+            BestScoreBlock.Text = $"Best Score: {CurrentState.BestScore:F2}€";
 
             UpdateBalance();
             UpdateInventoryUI();
