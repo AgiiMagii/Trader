@@ -36,7 +36,7 @@ namespace Trader.Controls
         private List<Product> toRemove = new List<Product>();
         private BestScoreService bestScoreService = new BestScoreService();
         private GameState CurrentState;
-        private DispatcherTimer messageTimer;
+        private readonly Dictionary<TextBlock, DispatcherTimer> _timers = new Dictionary<TextBlock, DispatcherTimer>(); // To set timers for each message block
         public GameControl(GameState initialState = null)
         {
             InitializeComponent();
@@ -63,7 +63,7 @@ namespace Trader.Controls
             }
             BestScoreBlock.Text = $"Best Score: {CurrentState.BestScore:F2}€";
             SaveBestScoreInfo();
-            ShowMessage("New Best Score!");
+            ShowMessage("New Best Score!", Brushes.Green);
         }
         public void SaveBestScoreInfo()
         {
@@ -96,7 +96,7 @@ namespace Trader.Controls
                     ChangeConditionAndTick();
                 }
             }
-            lblMessage.Content = "";
+            txtMessage.Text = "";
             CheckPlayerBalance();
         }
         private void UpdateOfferButtonUI(Button btn, Product product) //aizpildam offer pogas saturu
@@ -134,17 +134,12 @@ namespace Trader.Controls
                                 int remainingToSell = cityOffer.MaxDemand; //pilsētas pieprasījums pēc šī produkta (randoma vērtība no 1-10)
                                 if (remainingToSell <= 0) //ja pieprasījums ir 0 vai mazāks, tad pilsēta vairs nevēlas šo produktu
                                 {
-                                    lblMessage.Content = $"The city doesn't want any more {invProduct.Name}.";
+                                    txtMessage.Text = $"The city doesn't want any more {invProduct.Name}.";
                                 }
                                 else
                                 {
-                                    lblMessage.Content = $"City will accept up to {remainingToSell} units of {invProduct.Name}.";
+                                    txtMessage.Text = $"You can sell up to {remainingToSell} units of {invProduct.Name} to the city.";
                                 }
-                            }
-                            else
-                            {
-                                // Citi paziņojumi pirkšanai, ja nepieciešams
-                                lblMessage.Content = "";
                             }
                         }
                         else
@@ -162,7 +157,8 @@ namespace Trader.Controls
         {
             if (sender is Button button && button.Tag is Product product)
             {
-                lblProductName.Content = product.Name; //uzstāda izvēlēto produkta nosaukumu
+                lblProductName.Content = product.Name;
+                txtMessage.Text = "";
                 UpdateTotalSellPriceDisplay(); //šajā eventā metode nostrāda, ja daudzums ir jau ievadīts, bet spēlētājs maina produktu
             }
         }
@@ -204,7 +200,7 @@ namespace Trader.Controls
             // aprēķina kopējo pirkšanas cenu, pamatojoties uz izvēlēto produktu un daudzumu
             if (lblProductName.Content is string productName && !string.IsNullOrEmpty(productName) && int.TryParse(lblQuantity.Content.ToString(), out int quantity)) //ja ir izvēlēts produkts un daudzums ir derīgs skaitlis
             {
-                var product = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
+                Product product = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
                 if (product != null)
                 {
                     decimal totalCost = product.Price * quantity; //aprēķina kopējo cenu
@@ -284,17 +280,17 @@ namespace Trader.Controls
                 Product selectedProduct = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
                 if (selectedProduct == null)
                 {
-                    MessageBox.Show("Please select a product to buy.");
+                    ShowMessage("Please select a product to buy.", Brushes.Red);
                     return;
                 }
                 if (quantityToBuy > selectedProduct.Quantity)
                 {
-                    MessageBox.Show($"Cannot buy more than {selectedProduct.Quantity} units of {selectedProduct.Name}.");
+                    ShowMessage($"Cannot buy more than {selectedProduct.Quantity} units of {selectedProduct.Name}.", Brushes.Yellow);
                     return;
                 }
                 if (quantityToBuy <= 0)
                 {
-                    MessageBox.Show("Please enter a quantity you want to buy.");
+                    ShowMessage("Please enter a quantity you want to buy.", Brushes.Red);
                     return;
                 }
                 Product existing = inventory.FirstOrDefault(p => //p ir tāds pats produkts inventārā
@@ -304,7 +300,7 @@ namespace Trader.Controls
                 decimal totalCost = selectedProduct.Price * quantityToBuy; //aprēķina kopējo pirkšanas cenu
                 if (totalCost > (decimal)account.GetBalance()) //pārbauda, vai spēlētājam ir pietiekami daudz naudas
                 {
-                    MessageBox.Show("Not enough balance to complete the purchase.");
+                    ShowMessage("Not enough balance to complete the purchase.", Brushes.Red);
                     return;
                 }
                 else
@@ -315,7 +311,7 @@ namespace Trader.Controls
                     }
                     else
                     {
-                        var newProduct = new Product(false) //ja tāds pats produkts nav inventārā, izveido jaunu produktu ar tādām pašām īpašībām kā izvēlētajam produktam
+                        Product newProduct = new Product(false) //ja tāds pats produkts nav inventārā, izveido jaunu produktu ar tādām pašām īpašībām kā izvēlētajam produktam
                         {
                             Name = selectedProduct.Name,
                             Quantity = quantityToBuy,
@@ -327,18 +323,20 @@ namespace Trader.Controls
                     }
                     selectedProduct.Quantity -= quantityToBuy; //samazina izvēlētā produkta daudzumu piedāvājumā
 
-                    UpdateCityOfferUI(selectedProduct); //atjauno konkretā produkta UI piedāvājumā, lai atspoguļotu izmaiņas
+                    UpdateCityOfferUI(selectedProduct);
                     lblQuantity.Content = "0";
                     lblBuyPrice.Content = "0.00€";
                     lblProductName.Content = "";
-                    account.DecreaseBalance((double)totalCost); //samazina spēlētāja bilanci par kopējo pirkšanas cenu
-                    UpdateBalance(); //atjauno bilances UI
-                    UpdateInventoryUI(); //atjauno inventāra UI, lai atspoguļotu izmaiņas
+                    account.DecreaseBalance((double)totalCost);
+                    UpdateBalance();
+                    UpdateInventoryUI();
+                    ShowMessage($"You bought {quantityToBuy} units of {selectedProduct.Name}, and spent {totalCost}€.", Brushes.GreenYellow);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a valid product and quantity to buy.");
+                ShowMessage("Please select a valid product and quantity to buy.", Brushes.Red);
+                return;
             }
         }
         private void UpdateInventoryUI()
@@ -406,42 +404,44 @@ namespace Trader.Controls
         }
         private void UpdateInventorySlotBackground(StackPanel slotPanel, Product product)
         {
-            if (slotPanel == null || product == null)
-                return;
-
-            Color centerColor;
-
-            switch (product.Freshness)
             {
-                case Freshness.Fresh:
-                    centerColor = Colors.LightGreen;
-                    break;
-                case Freshness.Normal:
-                    centerColor = Colors.Orange;
-                    break;
-                case Freshness.Expired:
-                    centerColor = Colors.Red;
-                    break;
-                case Freshness.Rotten:
-                    centerColor = Colors.Gray;
-                    break;
-                default:
-                    centerColor = Colors.LightGray;
-                    break;
-            }
+                if (slotPanel == null || product == null)
+                    return;
 
-            slotPanel.Background = new RadialGradientBrush
-            {
-                GradientOrigin = new Point(0.5, 0.5),
-                Center = new Point(0.5, 0.5),
-                RadiusX = 0.6,
-                RadiusY = 0.6,
-                GradientStops = new GradientStopCollection
+                Color centerColor;
+
+                switch (product.Freshness)
+                {
+                    case Freshness.Fresh:
+                        centerColor = Colors.LightGreen;
+                        break;
+                    case Freshness.Normal:
+                        centerColor = Colors.Orange;
+                        break;
+                    case Freshness.Expired:
+                        centerColor = Colors.Red;
+                        break;
+                    case Freshness.Rotten:
+                        centerColor = Colors.Gray;
+                        break;
+                    default:
+                        centerColor = Colors.LightGray;
+                        break;
+                }
+
+                slotPanel.Background = new RadialGradientBrush
+                {
+                    GradientOrigin = new Point(0.5, 0.5),
+                    Center = new Point(0.5, 0.5),
+                    RadiusX = 0.6,
+                    RadiusY = 0.6,
+                    GradientStops = new GradientStopCollection
                 {
                     new GradientStop(centerColor, 0.0),
                     new GradientStop(Colors.Transparent, 1.0)
                 }
-            };
+                };
+            }
         }
         private void SellButton_Click(object sender, RoutedEventArgs e)
         {
@@ -504,10 +504,12 @@ namespace Trader.Controls
                 lblBuyPrice.Content = "0.00€";
                 lblSellPrice.Content = "0.00€";
                 lblProductName.Content = "";
+                txtMessage.Text = "";
+                ShowMessage($"You sold {allowedToSell} units of {invProduct.Name}, and earned {totalRevenue}€.", Brushes.GreenYellow);
             }
             else
             {
-                MessageBox.Show("Please select a valid product and quantity to sell.");
+                ShowMessage("Please select a valid product and quantity to sell.", Brushes.Red);
             }
         }
         private void UpdateTotalSellPriceDisplay()
@@ -557,7 +559,7 @@ namespace Trader.Controls
                 BestScore = BestScoreBlock.Text.Contains(":") ? double.Parse(BestScoreBlock.Text.Split(':')[1].Trim().Replace("€", "")) : 0
             };
             File.WriteAllText(CurrentSaveFilePath, JsonConvert.SerializeObject(gameState, Formatting.Indented));
-            ShowMessage("Game saved successfully.");
+            ShowMessage("Game saved successfully.", Brushes.Green);
         }
         private void UpdateUI()
         {
@@ -586,23 +588,49 @@ namespace Trader.Controls
                 MessageBox.Show($"Error saving game: {ex.Message}");
             }
         }
-        private void ShowMessage(string message)
+        private void ShowMessage(string message, Brush color)
         {
-            lblMessage.Content = message;
+            if (MessagePanel == null)
+                return;
 
-            if (messageTimer != null)
-                messageTimer.Stop();
+            var allBlocks = MessagePanel.Children.OfType<TextBlock>().ToList();
+            if (allBlocks.Count == 0)
+                return;
 
-            messageTimer = new DispatcherTimer
+            TextBlock emptyBlock = allBlocks.FirstOrDefault(tb => string.IsNullOrWhiteSpace(tb.Text));
+
+            TextBlock target = emptyBlock
+                               ?? allBlocks.FirstOrDefault(tb => tb.Text == message)
+                               ?? allBlocks.First();
+
+            if (_timers.TryGetValue(target, out DispatcherTimer existingTimer))
+            {
+                existingTimer.Stop();
+                _timers.Remove(target);
+            }
+
+            target.Foreground = color;
+            target.Text = message;
+
+            DispatcherTimer timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(3)
             };
-            messageTimer.Tick += (s, e) =>
+            timer.Tick += (s, e) =>
             {
-                lblMessage.Content = string.Empty;
-                messageTimer.Stop();
+                try
+                {
+                    target.Text = string.Empty;
+                }
+                finally
+                {
+                    timer.Stop();
+                    _timers.Remove(target);
+                }
             };
-            messageTimer.Start();
+
+            _timers[target] = timer;
+            timer.Start();
         }
     }
 }

@@ -208,15 +208,41 @@
                     </StackPanel>
 
                     <!-- Messages -->
-                    <Label Grid.Row="3"
-               x:Name="lblMessage"
-               Content=""
-               FontSize="15"
-               FontWeight="DemiBold"
-               Foreground="Black"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Bottom"
-               Margin="0,0,0,10"/>
+                    <Grid Grid.Row="3" Width="200" Height="Auto">
+                        <WrapPanel  x:Name="MessagePanel" HorizontalAlignment="Center">
+                            <TextBlock 
+                                x:Name="txtMessage"
+                                Text=""
+                                TextWrapping="Wrap"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Foreground="Black"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10"/>
+                            <TextBlock
+                                x:Name="txtMessage1"
+                                TextWrapping="Wrap"
+                                Text=""
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Foreground="Black"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10"/>
+                            <TextBlock
+                                x:Name="txtMessage2"
+                                TextWrapping="Wrap"
+                                Text=""
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Foreground="Black"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10"/>
+                        </WrapPanel>
+                    </Grid>
+
 
                     <!-- Prices -->
                     <Grid Grid.Row="2" Margin="0,0,0,10">

@@ -1,5 +1,5 @@
 {
-  "PlayerBalance": 1981.4196000000002,
+  "PlayerBalance": 1927.0196,
   "Inventory": [
     {
       "Name": "Lemon",
@@ -9,6 +9,16 @@
       "TicksToExpire": 2,
       "ImagePath": "/Assets/Images/Lemon.png",
       "Type": 8,
+      "MaxDemand": 2147483647
+    },
+    {
+      "Name": "Strawberry",
+      "Price": 0.0,
+      "Quantity": 4,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Assets/Images/Strawberry.png",
+      "Type": 11,
       "MaxDemand": 2147483647
     }
   ],
@@ -46,7 +56,7 @@
     {
       "Name": "Strawberry",
       "Price": 13.60,
-      "Quantity": 4,
+      "Quantity": 0,
       "Freshness": 2,
       "TicksToExpire": 2,
       "ImagePath": "/Assets/Images/Strawberry.png",
