@@ -43,5 +43,12 @@ namespace Trader.Lib
             Fresh,
             Rotten
         }
+        public enum MessageType
+        {
+            Info,
+            Success,
+            Warning,
+            Error
+        }
     }
 }

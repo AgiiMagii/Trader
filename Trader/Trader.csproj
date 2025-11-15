@@ -93,6 +93,7 @@
     <Compile Include="Lib\GameState.cs" />
     <Compile Include="Lib\Helper.cs" />
     <Compile Include="Lib\Json.cs" />
+    <Compile Include="Lib\MessageService.cs" />
     <Compile Include="Lib\Product.cs" />
     <Compile Include="Lib\SavedGame.cs" />
     <Compile Include="MainWindow.xaml.cs">

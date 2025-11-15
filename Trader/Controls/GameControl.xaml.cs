@@ -1,23 +1,14 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using Trader.Lib;
-using static System.Windows.Forms.AxHost;
 using static Trader.Lib.Enums;
 
 namespace Trader.Controls
@@ -27,6 +18,7 @@ namespace Trader.Controls
         public event Action GameOverTriggered;
         public event Action BackToMainMenuRequested;
         public string CurrentSaveFilePath { get; set; }
+        private MessageService _messageService;
         private string gameName = "";
         private double newScore = 0;
         Account account = new Account();
@@ -36,10 +28,10 @@ namespace Trader.Controls
         private List<Product> toRemove = new List<Product>();
         private BestScoreService bestScoreService = new BestScoreService();
         private GameState CurrentState;
-        private readonly Dictionary<TextBlock, DispatcherTimer> _timers = new Dictionary<TextBlock, DispatcherTimer>(); // To set timers for each message block
         public GameControl(GameState initialState = null)
         {
             InitializeComponent();
+            _messageService = new MessageService(MessagePanel);
             if (initialState != null)
                 CurrentState = initialState;
             else
@@ -63,7 +55,7 @@ namespace Trader.Controls
             }
             BestScoreBlock.Text = $"Best Score: {CurrentState.BestScore:F2}€";
             SaveBestScoreInfo();
-            ShowMessage("New Best Score!", Brushes.Green);
+            _messageService.ShowMessage("New Best Score!", MessageType.Success, useTimer: true);
         }
         public void SaveBestScoreInfo()
         {
@@ -97,6 +89,7 @@ namespace Trader.Controls
                 }
             }
             txtMessage.Text = "";
+            _messageService.ShowMessage($"You traveled to {CityLabel.Content}.", MessageType.Info, useTimer: true);
             CheckPlayerBalance();
         }
         private void UpdateOfferButtonUI(Button btn, Product product) //aizpildam offer pogas saturu
@@ -134,11 +127,11 @@ namespace Trader.Controls
                                 int remainingToSell = cityOffer.MaxDemand; //pilsētas pieprasījums pēc šī produkta (randoma vērtība no 1-10)
                                 if (remainingToSell <= 0) //ja pieprasījums ir 0 vai mazāks, tad pilsēta vairs nevēlas šo produktu
                                 {
-                                    txtMessage.Text = $"The city doesn't want any more {invProduct.Name}.";
+                                    _messageService.ShowMessage($"The city doesn't want any more {invProduct.Name}.", MessageType.Warning, useTimer: true);
                                 }
                                 else
                                 {
-                                    txtMessage.Text = $"You can sell up to {remainingToSell} units of {invProduct.Name} to the city.";
+                                    txtMessage.Text = ($"You can sell up to {remainingToSell} units of {invProduct.Name} to the city.");
                                 }
                             }
                         }
@@ -158,8 +151,8 @@ namespace Trader.Controls
             if (sender is Button button && button.Tag is Product product)
             {
                 lblProductName.Content = product.Name;
-                txtMessage.Text = "";
                 UpdateTotalSellPriceDisplay(); //šajā eventā metode nostrāda, ja daudzums ir jau ievadīts, bet spēlētājs maina produktu
+                txtMessage.Text = "";
             }
         }
         private void GenerateCityOffer()
@@ -238,6 +231,7 @@ namespace Trader.Controls
         }
         private void ChangeConditionAndTick()
         {
+            var toRemove = new List<Product>(); //saraksts, kurā glabās produktus, kas jāizņem no inventāra
             foreach (var invProduct in inventory) //iet cauri visiem inventāra produktiem
             {
                 invProduct.TicksToExpire--; //samazina atlikušos "gājienus" līdz produkta stāvokļa maiņai
@@ -255,6 +249,7 @@ namespace Trader.Controls
                         case Freshness.Normal:
                             invProduct.Freshness = Freshness.Expired;
                             invProduct.TicksToExpire = random.Next(1, 3);
+                            _messageService.ShowMessage("You have some old stuff in your inventory.", MessageType.Warning, useTimer: true);
                             break;
 
                         case Freshness.Expired:
@@ -269,7 +264,8 @@ namespace Trader.Controls
             }
             foreach (var item in toRemove)
             {
-                inventory.Remove(item); // ja produkts ir sapuvusi, izņem to no inventāra
+                inventory.Remove(item); // ja produkts ir sapuvusi, izņem to no inventārā
+                _messageService.ShowMessage($"Oh, no! Your {item.Name} has been thrown away.", MessageType.Info, useTimer: true);
             }
             UpdateInventoryUI(); //atjauno inventāra UI, lai atspoguļotu izmaiņas
         }
@@ -280,17 +276,17 @@ namespace Trader.Controls
                 Product selectedProduct = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
                 if (selectedProduct == null)
                 {
-                    ShowMessage("Please select a product to buy.", Brushes.Red);
+                    _messageService.ShowMessage("Please select a product to buy.", MessageType.Error, useTimer: true);
                     return;
                 }
                 if (quantityToBuy > selectedProduct.Quantity)
                 {
-                    ShowMessage($"Cannot buy more than {selectedProduct.Quantity} units of {selectedProduct.Name}.", Brushes.Yellow);
+                    _messageService.ShowMessage($"Cannot buy more than {selectedProduct.Quantity} units of {selectedProduct.Name}.", MessageType.Warning, useTimer: true);
                     return;
                 }
                 if (quantityToBuy <= 0)
                 {
-                    ShowMessage("Please enter a quantity you want to buy.", Brushes.Red);
+                    _messageService.ShowMessage("Please enter a quantity you want to buy.", MessageType.Error, useTimer: true);
                     return;
                 }
                 Product existing = inventory.FirstOrDefault(p => //p ir tāds pats produkts inventārā
@@ -300,7 +296,7 @@ namespace Trader.Controls
                 decimal totalCost = selectedProduct.Price * quantityToBuy; //aprēķina kopējo pirkšanas cenu
                 if (totalCost > (decimal)account.GetBalance()) //pārbauda, vai spēlētājam ir pietiekami daudz naudas
                 {
-                    ShowMessage("Not enough balance to complete the purchase.", Brushes.Red);
+                    _messageService.ShowMessage("Not enough money to complete the purchase.", MessageType.Warning, useTimer: true);
                     return;
                 }
                 else
@@ -330,12 +326,12 @@ namespace Trader.Controls
                     account.DecreaseBalance((double)totalCost);
                     UpdateBalance();
                     UpdateInventoryUI();
-                    ShowMessage($"You bought {quantityToBuy} units of {selectedProduct.Name}, and spent {totalCost}€.", Brushes.GreenYellow);
+                    _messageService.ShowMessage($"You bought {quantityToBuy} units of {selectedProduct.Name}, and spent {totalCost}€.", MessageType.Info, useTimer: true);
                 }
             }
             else
             {
-                ShowMessage("Please select a valid product and quantity to buy.", Brushes.Red);
+                _messageService.ShowMessage("Please select a valid product and quantity to buy.", MessageType.Error, useTimer: true);
                 return;
             }
         }
@@ -454,36 +450,36 @@ namespace Trader.Controls
                 .FirstOrDefault();
                 if (invProduct == null)
                 {
-                    MessageBox.Show("Please select a product to sell from your inventory.");
+                    _messageService.ShowMessage("Please select a product to sell.", MessageType.Error, useTimer: true);
                     return;
                 }
                 if (quantityToSell > invProduct.Quantity)
                 {
-                    MessageBox.Show($"Cannot sell more than {invProduct.Quantity} units of {invProduct.Name}.");
+                    _messageService.ShowMessage($"Cannot sell more than {invProduct.Quantity} units of {invProduct.Name}.", MessageType.Warning, useTimer: true);
                     return;
                 }
                 if (quantityToSell <= 0)
                 {
-                    MessageBox.Show("Please enter a quantity you want to sell.");
+                    _messageService.ShowMessage("Please enter a quantity you want to sell.", MessageType.Error, useTimer: true);
                     return;
                 }
                 Product cityOffer = cityOffers.FirstOrDefault(p => p.Name == productName);
                 if (cityOffer == null)
                 {
-                    MessageBox.Show("No current city offer for this product.");
+                    _messageService.ShowMessage("No current city offer for this product.", MessageType.Error, useTimer: true);
                     return;
                 }
                 int remainingToSell = cityOffer.MaxDemand;
                 if (remainingToSell <= 0)
                 {
-                    MessageBox.Show($"The city doesn't want any more {invProduct.Name}.");
+                    _messageService.ShowMessage($"The city doesn't want any more {invProduct.Name}.", MessageType.Warning, useTimer: true);
                     return;
                 }
                 int allowedToSell = Math.Min(quantityToSell, remainingToSell);
                 if (allowedToSell < quantityToSell)
                 {
-                    MessageBox.Show($"The city only accepted {allowedToSell} units of {invProduct.Name}. " +
-                                    $"{quantityToSell - allowedToSell} remain in your inventory.");
+                    _messageService.ShowMessage($"The city only accepted {allowedToSell} units of {invProduct.Name}. " +
+                                    $"{quantityToSell - allowedToSell} remain in your inventory.", MessageType.Warning, useTimer: true);
                 }
                 invProduct.Quantity -= allowedToSell;
                 cityOffer.MaxDemand -= allowedToSell;
@@ -505,11 +501,11 @@ namespace Trader.Controls
                 lblSellPrice.Content = "0.00€";
                 lblProductName.Content = "";
                 txtMessage.Text = "";
-                ShowMessage($"You sold {allowedToSell} units of {invProduct.Name}, and earned {totalRevenue}€.", Brushes.GreenYellow);
+                _messageService.ShowMessage($"You sold {allowedToSell} units of {invProduct.Name}, and earned {totalRevenue}€.", MessageType.Info, useTimer: true);
             }
             else
             {
-                ShowMessage("Please select a valid product and quantity to sell.", Brushes.Red);
+                _messageService.ShowMessage("Please select a valid product and quantity to sell.", MessageType.Error, useTimer: true);
             }
         }
         private void UpdateTotalSellPriceDisplay()
@@ -559,7 +555,7 @@ namespace Trader.Controls
                 BestScore = BestScoreBlock.Text.Contains(":") ? double.Parse(BestScoreBlock.Text.Split(':')[1].Trim().Replace("€", "")) : 0
             };
             File.WriteAllText(CurrentSaveFilePath, JsonConvert.SerializeObject(gameState, Formatting.Indented));
-            ShowMessage("Game saved successfully.", Brushes.Green);
+            _messageService.ShowMessage("Game saved successfully.", MessageType.Info, useTimer: true);
         }
         private void UpdateUI()
         {
@@ -585,52 +581,8 @@ namespace Trader.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving game: {ex.Message}");
+                _messageService.ShowMessage($"Error saving game: {ex.Message}", MessageType.Error, useTimer: true);
             }
-        }
-        private void ShowMessage(string message, Brush color)
-        {
-            if (MessagePanel == null)
-                return;
-
-            var allBlocks = MessagePanel.Children.OfType<TextBlock>().ToList();
-            if (allBlocks.Count == 0)
-                return;
-
-            TextBlock emptyBlock = allBlocks.FirstOrDefault(tb => string.IsNullOrWhiteSpace(tb.Text));
-
-            TextBlock target = emptyBlock
-                               ?? allBlocks.FirstOrDefault(tb => tb.Text == message)
-                               ?? allBlocks.First();
-
-            if (_timers.TryGetValue(target, out DispatcherTimer existingTimer))
-            {
-                existingTimer.Stop();
-                _timers.Remove(target);
-            }
-
-            target.Foreground = color;
-            target.Text = message;
-
-            DispatcherTimer timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(3)
-            };
-            timer.Tick += (s, e) =>
-            {
-                try
-                {
-                    target.Text = string.Empty;
-                }
-                finally
-                {
-                    timer.Stop();
-                    _timers.Remove(target);
-                }
-            };
-
-            _timers[target] = timer;
-            timer.Start();
         }
     }
 }
