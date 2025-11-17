@@ -55,7 +55,7 @@
 
                 <StackPanel HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
-                Width="400">
+                Width="600">
 
                     <TextBlock Text="Saved Games"
                    FontSize="50"
@@ -75,17 +75,17 @@
 
                     <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Center">
-                        <Button Content="Load" Width="100" Margin="5"
+                        <Button Content="Load" Width="150" Margin="5"
                     Style="{StaticResource ButtonStyle1}" 
-                                FontSize="20"
+                                FontSize="30"
                     Click="LoadGame_Click"/>
-                        <Button Content="Delete" Width="100" Margin="5"
+                        <Button Content="Delete" Width="150" Margin="5"
                     Style="{StaticResource ButtonStyle1}" 
-                                FontSize="20"
+                                FontSize="30"
                     Click="Delete_Click"/>
-                        <Button Content="Close" Width="100" Margin="5"
+                        <Button Content="Close" Width="150" Margin="5"
                     Style="{StaticResource ButtonStyle1}" 
-                                FontSize="20"
+                                FontSize="30"
                     Click="Close_Click"/>
                     </StackPanel>
                 </StackPanel>
@@ -100,7 +100,7 @@
 
                     <!-- Virsraksts -->
                     <TextBlock Text="New Game"
-                   FontSize="24"
+                   FontSize="50"
                    FontWeight="Bold"
                    Foreground="White"
                    Margin="0,0,0,20"
@@ -140,11 +140,12 @@
 
 
                         <Button Content="Close"
-                Width="100"
-                Height="25"
+                Width="150"
+                Height="40"
                 HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                 Style="{StaticResource ButtonStyle1}"
+                                FontSize="25"
                 Click="btnCloseOverlay_Click"/>
                     </Grid>
                 </StackPanel>

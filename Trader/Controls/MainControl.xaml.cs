@@ -66,7 +66,9 @@ namespace Trader.Controls
             string gameName = txtGameName.Text.Trim();
 
             if (string.IsNullOrEmpty(gameName))
-                return; // Var arī parādīt paziņojumu
+            {
+                gameName = "";
+            }
 
             if (gameName.Length > 20)
             {

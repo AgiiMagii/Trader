@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using static Trader.Lib.Enums;
 
@@ -13,70 +11,78 @@ namespace Trader.Lib
     public class MessageService
     {
         private readonly Panel _messagePanel;
-        private readonly Dictionary<TextBlock, DispatcherTimer> _timers;
         private readonly Dictionary<MessageType, Brush> _messageColors;
+        private readonly TimeSpan _defaultDuration = TimeSpan.FromSeconds(3);
 
         public MessageService(Panel messagePanel)
         {
             _messagePanel = messagePanel ?? throw new ArgumentNullException(nameof(messagePanel));
-            _timers = new Dictionary<TextBlock, DispatcherTimer>();
-
             _messageColors = new Dictionary<MessageType, Brush>
-        {
-            { MessageType.Info, Brushes.Black },
-            { MessageType.Success, Brushes.DarkOliveGreen },
-            { MessageType.Warning, Brushes.DarkGoldenrod },
-            { MessageType.Error, Brushes.DarkRed }
-        };
+            {
+                { MessageType.Info, Brushes.Black },
+                { MessageType.Success, Brushes.DarkOliveGreen },
+                { MessageType.Warning, Brushes.DarkGoldenrod },
+                { MessageType.Error, Brushes.DarkRed }
+            };
         }
-        public void ShowMessage(string message, MessageType messageType, bool useTimer = true)
+        /// Shows a message by creating a transient TextBlock and adding it to the panel.
+        /// Each message gets its own DispatcherTimer and will be removed after the interval.
+        /// Calls are marshalled to the UI thread automatically.
+        public void ShowMessage(string message, MessageType messageType, bool useTimer = true, TimeSpan? duration = null)
         {
-            if (_messagePanel == null)
-                return;
-
-            var allBlocks = _messagePanel.Children.OfType<TextBlock>().ToList();
-            if (allBlocks.Count == 0)
-                return;
-
-            TextBlock emptyBlock = allBlocks.FirstOrDefault(tb => string.IsNullOrWhiteSpace(tb.Text));
-
-            TextBlock target = emptyBlock
-                               ?? allBlocks.FirstOrDefault(tb => tb.Text == message)
-                               ?? allBlocks.First();
-            Brush color = _messageColors.ContainsKey(messageType) ? _messageColors[messageType] : Brushes.White;
-
-            if (_timers.TryGetValue(target, out DispatcherTimer existingTimer))
+            if (_messagePanel == null) return;
+            if (!_messagePanel.Dispatcher.CheckAccess())
             {
-                existingTimer.Stop();
-                _timers.Remove(target);
+                _messagePanel.Dispatcher.Invoke(() => ShowMessage(message, messageType, useTimer, duration));
+                return;
             }
-
-            target.Foreground = color;
-            target.Text = message;
-
-            if (useTimer)
+            TextBlock tb = new TextBlock
             {
-                DispatcherTimer timer = new DispatcherTimer
-                {
-                    Interval = TimeSpan.FromSeconds(3)
-                };
-                timer.Tick += (s, e) =>
-                {
-                    try
-                    {
-                        target.Text = string.Empty;
-                    }
-                    finally
-                    {
-                        timer.Stop();
-                        _timers.Remove(target);
-                    }
-                };
+                Text = message ?? string.Empty,
+                Foreground = _messageColors.ContainsKey(messageType) ? _messageColors[messageType] : Brushes.Black,
+                Margin = new System.Windows.Thickness(2, 2, 2, 2),
+                FontSize = 25,
+                TextWrapping = System.Windows.TextWrapping.Wrap
+            };
+            _messagePanel.Children.Add(tb);
 
-                _timers[target] = timer;
-                timer.Start();
-            }
-            
+            if (!useTimer) return;
+
+            TimeSpan interval = duration ?? _defaultDuration;
+            DispatcherTimer timer = new DispatcherTimer { Interval = interval };
+            timer.Tick += (s, e) =>
+            {
+                try
+                {
+                    timer.Stop();
+                    if (_messagePanel.Children.Contains(tb))
+                    {
+                        DoubleAnimation fadeOut = new DoubleAnimation
+                        {
+                            From = 1.0,
+                            To = 0.0,
+                            Duration = TimeSpan.FromSeconds(1)
+                        };
+
+                        fadeOut.Completed += (s2, e2) =>
+                        {
+                            if (_messagePanel.Children.Contains(tb))
+                                _messagePanel.Children.Remove(tb);
+                        };
+
+                        tb.BeginAnimation(TextBlock.OpacityProperty, fadeOut);
+                    }
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    timer.Tick -= null;
+                }
+            };
+            timer.Start();
         }
     }
 }
+

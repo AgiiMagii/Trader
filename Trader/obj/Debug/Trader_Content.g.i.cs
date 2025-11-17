@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("favicon%20(basket).ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/images/sydney.png")]
 
 

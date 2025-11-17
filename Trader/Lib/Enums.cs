@@ -36,6 +36,29 @@ namespace Trader.Lib
             [Description("/Assets/Images/Strawberry.png")]
             Strawberry
         }
+        public enum Cities
+        {
+            [Description("/Assets/Images/NewYork.png")]
+            NewYork,
+            [Description("/Assets/Images/London.png")]
+            London,
+            [Description("/Assets/Images/Tokyo.png")]
+            Tokyo,
+            [Description("/Assets/Images/Riga.png")]
+            Riga,
+            [Description("/Assets/Images/Paris.png")]
+            Paris,
+            [Description("/Assets/Images/Amsterdam.png")]
+            Amsterdam,
+            [Description("/Assets/Images/Berlin.png")]
+            Berlin,
+            [Description("/Assets/Images/Milan.png")]
+            Milan,
+            [Description("/Assets/Images/Sydney.png")]
+            Sydney,
+            [Description("/Assets/Images/Rome.png")]
+            Rome
+        }
         public enum Freshness
         {
             Expired,

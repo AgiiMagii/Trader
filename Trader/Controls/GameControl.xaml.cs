@@ -55,7 +55,7 @@ namespace Trader.Controls
             }
             BestScoreBlock.Text = $"Best Score: {CurrentState.BestScore:F2}€";
             SaveBestScoreInfo();
-            _messageService.ShowMessage("New Best Score!", MessageType.Success, useTimer: true);
+            _messageService.ShowMessage("New Best Score!", MessageType.Success);
         }
         public void SaveBestScoreInfo()
         {
@@ -68,7 +68,8 @@ namespace Trader.Controls
             if (sender is Button button)
             {
                 cityOffers.Clear();
-                CityLabel.Content = button.Content.ToString();
+                CityLabel.Content = button.Name;
+
                 GenerateCityOffer();
 
                 for (int i = 0; i < OfferGrid.Children.Count; i++)
@@ -83,13 +84,10 @@ namespace Trader.Controls
                         }
                     }
                 }
-                foreach (var product in inventory.ToList())
-                {
-                    ChangeConditionAndTick();
-                }
+                ChangeConditionAndTick();
             }
             txtMessage.Text = "";
-            _messageService.ShowMessage($"You traveled to {CityLabel.Content}.", MessageType.Info, useTimer: true);
+            _messageService.ShowMessage($"You traveled to {CityLabel.Content}.", MessageType.Info);
             CheckPlayerBalance();
         }
         private void UpdateOfferButtonUI(Button btn, Product product) //aizpildam offer pogas saturu
@@ -106,45 +104,82 @@ namespace Trader.Controls
         }
         private void QuantityButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button)
+            Button button = sender as Button;
+            if (button == null)
+                return;
+
+            string productName = lblProductName.Content as string;
+            if (productName == null)
+                return;
+
+            // city offer
+            Product cityOffer = cityOffers.FirstOrDefault(p => p.Name == productName);
+            if (cityOffer == null)
+                return;
+
+            // inventory item
+            Product invProduct = inventory.FirstOrDefault(p => p.Name == productName);
+
+            int currentQty = int.TryParse(lblQuantity.Content.ToString(), out int qty) ? qty : 0;
+
+            // ----- MODIFY QTY -----
+            if ((button.Content as string) == "+")
             {
-                int currentQty = int.TryParse(lblQuantity.Content.ToString(), out int qty) ? qty : 0; //nolasa pašreizējo daudzumu daudzuma lauciņā
+                lblQuantity.Content = (currentQty + 1).ToString();
+            }
+            else
+            {
+                if (currentQty > 0)
+                    lblQuantity.Content = (currentQty - 1).ToString();
+            }
 
-                if (lblProductName.Content is string productName) //nolasa izvēlēto produktu, jauns produkts ir izvēlēts
+            // recompute new quantity
+            int newQty = int.Parse(lblQuantity.Content.ToString());
+
+            // ---- SHOW CITY DEMAND INFO ----
+            if (invProduct != null)  // only if item exists in inventory
+            {
+                int maxSell = cityOffer.MaxDemand;
+
+                if (maxSell <= 0)
                 {
-                    Product cityOffer = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
-
-                    if (cityOffer != null) //ja produkts ir piedāvājumā, tad palielina vai samazina daudzumu
+                    // ONLY show this if user tries to increase beyond 0
+                    if (newQty > 0)
                     {
-                        if ((button.Content as string) == "+") //ja nospiesta plus poga
-                        {
-                            lblQuantity.Content = (currentQty + 1).ToString(); //palielina daudzumu par 1
+                        _messageService.ShowMessage(
+                            $"The city doesn't want any more {invProduct.Name}.",
+                            MessageType.Warning
+                        );
+                    }
+                }
+                else
+                {
+                    // show how many can still be sold
+                    if (newQty < maxSell)
+                    {
+                        txtMessage.Text =
+                            $"You can sell up to {maxSell} units of {invProduct.Name} to the city.";
+                    }
+                    else if (newQty == maxSell)
+                    {
+                        txtMessage.Text =
+                            $"You are at the max amount the city wants ({maxSell}).";
+                    }
+                    else // newQty > maxSell
+                    {
+                        _messageService.ShowMessage(
+                            $"The city doesn't want more than {maxSell} units of {invProduct.Name}.",
+                            MessageType.Warning
+                        );
 
-                            // Tiklīdz izvēlētais produkts ir arī inventārā, rādam info par city demand
-                            Product invProduct = inventory.FirstOrDefault(p => p.Name == productName); //atrodam inventārā izvēlētā produkta objektu
-                            if (invProduct != null) //ja produkts ir inventārā, tad rādam info par city demand (cik var pārdot pilsētai)
-                            {
-                                int remainingToSell = cityOffer.MaxDemand; //pilsētas pieprasījums pēc šī produkta (randoma vērtība no 1-10)
-                                if (remainingToSell <= 0) //ja pieprasījums ir 0 vai mazāks, tad pilsēta vairs nevēlas šo produktu
-                                {
-                                    _messageService.ShowMessage($"The city doesn't want any more {invProduct.Name}.", MessageType.Warning, useTimer: true);
-                                }
-                                else
-                                {
-                                    txtMessage.Text = ($"You can sell up to {remainingToSell} units of {invProduct.Name} to the city.");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (currentQty > 0) //ja nospiesta mīnus poga un daudzums ir lielāks par 0
-                                lblQuantity.Content = (currentQty - 1).ToString(); //samazina daudzumu par 1
-                        }
+                        // optional: block adding more
+                        lblQuantity.Content = maxSell.ToString();
                     }
                 }
             }
-            CountTotalCost(); //pārskaita kopējo pirkšanas cenu
-            UpdateTotalSellPriceDisplay(); //atjauno kopējo pārdošanas cenu, ja tāds pats produkts ir inventārā
+
+            CountTotalCost();
+            UpdateTotalSellPriceDisplay();
         }
         private void ProductButton_Click(object sender, RoutedEventArgs e)
         {
@@ -229,13 +264,65 @@ namespace Trader.Controls
             }
             return discountedPrice;
         }
+        //private void ChangeConditionAndTick()
+        //{
+        //    // Use the class-level toRemove (clear it for this tick)
+        //    toRemove.Clear();
+
+        //    // Iterate over a snapshot so removing items from inventory is safe
+        //    foreach (var invProduct in inventory.ToList())
+        //    {
+        //        // decrement ticks
+        //        invProduct.TicksToExpire--;
+
+        //        if (invProduct.TicksToExpire <= 0)
+        //        {
+        //            switch (invProduct.Freshness)
+        //            {
+        //                case Freshness.Fresh:
+        //                    invProduct.Freshness = Freshness.Normal;
+        //                    invProduct.TicksToExpire = random.Next(1, 4);
+        //                    break;
+
+        //                case Freshness.Normal:
+        //                    invProduct.Freshness = Freshness.Expired;
+        //                    invProduct.TicksToExpire = random.Next(1, 3);
+        //                    break;
+
+        //                case Freshness.Expired:
+        //                    invProduct.Freshness = Freshness.Rotten;
+        //                    // mark for removal after iteration
+        //                    toRemove.Add(invProduct);
+        //                    break;
+        //            }
+
+        //            if (invProduct.Freshness == Freshness.Rotten)
+        //            {
+        //                invProduct.TicksToExpire = 0;
+        //                _messageService.ShowMessage($"Oh, no! Your {invProduct.Name} has been thrown away.", MessageType.Error, useTimer: true);
+        //            }
+        //            else if (invProduct.Freshness == Freshness.Expired)
+        //            {
+        //                _messageService.ShowMessage("You have some old stuff in your inventory.", MessageType.Warning, useTimer: true);
+        //            }
+        //        }
+        //    }
+
+        //    // Remove rotten items that were collected in the class-level list
+        //    foreach (var item in toRemove.ToList())
+        //    {
+        //        inventory.Remove(item);
+        //    }
+        //    UpdateInventoryUI();
+        //}
         private void ChangeConditionAndTick()
         {
-            var toRemove = new List<Product>(); //saraksts, kurā glabās produktus, kas jāizņem no inventāra
-            foreach (var invProduct in inventory) //iet cauri visiem inventāra produktiem
+            toRemove.Clear();
+            var messagesThisTick = new List<(string text, MessageType type)>();
+
+            foreach (var invProduct in inventory.ToList())
             {
-                invProduct.TicksToExpire--; //samazina atlikušos "gājienus" līdz produkta stāvokļa maiņai
-                                            //ja atlikušais gājienu skaits ir 0 vai mazāks, maina produkta stāvokli uz nākamo
+                invProduct.TicksToExpire--;
 
                 if (invProduct.TicksToExpire <= 0)
                 {
@@ -249,25 +336,27 @@ namespace Trader.Controls
                         case Freshness.Normal:
                             invProduct.Freshness = Freshness.Expired;
                             invProduct.TicksToExpire = random.Next(1, 3);
-                            _messageService.ShowMessage("You have some old stuff in your inventory.", MessageType.Warning, useTimer: true);
+                            messagesThisTick.Add(("You have some old stuff in your inventory.", MessageType.Warning));
                             break;
 
                         case Freshness.Expired:
                             invProduct.Freshness = Freshness.Rotten;
                             toRemove.Add(invProduct);
-                            break;
-
-                        case Freshness.Rotten:
+                            messagesThisTick.Add(($"Oh, no! Your {invProduct.Name} has been thrown away.", MessageType.Error));
                             break;
                     }
                 }
             }
+
+            // parādām ziņas pēc tam, kad iterācija pabeigta
+            foreach (var msg in messagesThisTick)
+                _messageService.ShowMessage(msg.text, msg.type);
+
+            // izņemam rotten produktus
             foreach (var item in toRemove)
-            {
-                inventory.Remove(item); // ja produkts ir sapuvusi, izņem to no inventārā
-                _messageService.ShowMessage($"Oh, no! Your {item.Name} has been thrown away.", MessageType.Info, useTimer: true);
-            }
-            UpdateInventoryUI(); //atjauno inventāra UI, lai atspoguļotu izmaiņas
+                inventory.Remove(item);
+
+            UpdateInventoryUI();
         }
         private void BuyButton_Click(object sender, RoutedEventArgs e)
         {
@@ -276,17 +365,17 @@ namespace Trader.Controls
                 Product selectedProduct = cityOffers.FirstOrDefault(p => p.Name == productName); //atrodam city offer piedāvājumā izvēlētā produkta objektu
                 if (selectedProduct == null)
                 {
-                    _messageService.ShowMessage("Please select a product to buy.", MessageType.Error, useTimer: true);
+                    _messageService.ShowMessage("Please select a product to buy.", MessageType.Error);
                     return;
                 }
                 if (quantityToBuy > selectedProduct.Quantity)
                 {
-                    _messageService.ShowMessage($"Cannot buy more than {selectedProduct.Quantity} units of {selectedProduct.Name}.", MessageType.Warning, useTimer: true);
+                    _messageService.ShowMessage($"Cannot buy more than {selectedProduct.Quantity} units of {selectedProduct.Name}.", MessageType.Warning);
                     return;
                 }
                 if (quantityToBuy <= 0)
                 {
-                    _messageService.ShowMessage("Please enter a quantity you want to buy.", MessageType.Error, useTimer: true);
+                    _messageService.ShowMessage("Please enter a quantity you want to buy.", MessageType.Error);
                     return;
                 }
                 Product existing = inventory.FirstOrDefault(p => //p ir tāds pats produkts inventārā
@@ -296,7 +385,7 @@ namespace Trader.Controls
                 decimal totalCost = selectedProduct.Price * quantityToBuy; //aprēķina kopējo pirkšanas cenu
                 if (totalCost > (decimal)account.GetBalance()) //pārbauda, vai spēlētājam ir pietiekami daudz naudas
                 {
-                    _messageService.ShowMessage("Not enough money to complete the purchase.", MessageType.Warning, useTimer: true);
+                    _messageService.ShowMessage("Not enough money to complete the purchase.", MessageType.Warning);
                     return;
                 }
                 else
@@ -326,12 +415,12 @@ namespace Trader.Controls
                     account.DecreaseBalance((double)totalCost);
                     UpdateBalance();
                     UpdateInventoryUI();
-                    _messageService.ShowMessage($"You bought {quantityToBuy} units of {selectedProduct.Name}, and spent {totalCost}€.", MessageType.Info, useTimer: true);
+                    _messageService.ShowMessage($"You bought {quantityToBuy} units of {selectedProduct.Name}, and spent {totalCost}€.", MessageType.Info);
                 }
             }
             else
             {
-                _messageService.ShowMessage("Please select a valid product and quantity to buy.", MessageType.Error, useTimer: true);
+                _messageService.ShowMessage("Please select a valid product and quantity to buy.", MessageType.Error);
                 return;
             }
         }
@@ -450,36 +539,36 @@ namespace Trader.Controls
                 .FirstOrDefault();
                 if (invProduct == null)
                 {
-                    _messageService.ShowMessage("Please select a product to sell.", MessageType.Error, useTimer: true);
+                    _messageService.ShowMessage("Please select a product to sell.", MessageType.Error);
                     return;
                 }
                 if (quantityToSell > invProduct.Quantity)
                 {
-                    _messageService.ShowMessage($"Cannot sell more than {invProduct.Quantity} units of {invProduct.Name}.", MessageType.Warning, useTimer: true);
+                    _messageService.ShowMessage($"Cannot sell more than {invProduct.Quantity} units of {invProduct.Name}.", MessageType.Warning);
                     return;
                 }
                 if (quantityToSell <= 0)
                 {
-                    _messageService.ShowMessage("Please enter a quantity you want to sell.", MessageType.Error, useTimer: true);
+                    _messageService.ShowMessage("Please enter a quantity you want to sell.", MessageType.Error);
                     return;
                 }
                 Product cityOffer = cityOffers.FirstOrDefault(p => p.Name == productName);
                 if (cityOffer == null)
                 {
-                    _messageService.ShowMessage("No current city offer for this product.", MessageType.Error, useTimer: true);
+                    _messageService.ShowMessage("No current city offer for this product.", MessageType.Error);
                     return;
                 }
                 int remainingToSell = cityOffer.MaxDemand;
                 if (remainingToSell <= 0)
                 {
-                    _messageService.ShowMessage($"The city doesn't want any more {invProduct.Name}.", MessageType.Warning, useTimer: true);
+                    _messageService.ShowMessage($"The city doesn't want any more {invProduct.Name}.", MessageType.Warning);
                     return;
                 }
                 int allowedToSell = Math.Min(quantityToSell, remainingToSell);
                 if (allowedToSell < quantityToSell)
                 {
                     _messageService.ShowMessage($"The city only accepted {allowedToSell} units of {invProduct.Name}. " +
-                                    $"{quantityToSell - allowedToSell} remain in your inventory.", MessageType.Warning, useTimer: true);
+                                    $"{quantityToSell - allowedToSell} remain in your inventory.", MessageType.Warning);
                 }
                 invProduct.Quantity -= allowedToSell;
                 cityOffer.MaxDemand -= allowedToSell;
@@ -501,11 +590,11 @@ namespace Trader.Controls
                 lblSellPrice.Content = "0.00€";
                 lblProductName.Content = "";
                 txtMessage.Text = "";
-                _messageService.ShowMessage($"You sold {allowedToSell} units of {invProduct.Name}, and earned {totalRevenue}€.", MessageType.Info, useTimer: true);
+                _messageService.ShowMessage($"You sold {allowedToSell} units of {invProduct.Name}, and earned {totalRevenue:F2}€.", MessageType.Info);
             }
             else
             {
-                _messageService.ShowMessage("Please select a valid product and quantity to sell.", MessageType.Error, useTimer: true);
+                _messageService.ShowMessage("Please select a valid product and quantity to sell.", MessageType.Error);
             }
         }
         private void UpdateTotalSellPriceDisplay()
@@ -555,7 +644,7 @@ namespace Trader.Controls
                 BestScore = BestScoreBlock.Text.Contains(":") ? double.Parse(BestScoreBlock.Text.Split(':')[1].Trim().Replace("€", "")) : 0
             };
             File.WriteAllText(CurrentSaveFilePath, JsonConvert.SerializeObject(gameState, Formatting.Indented));
-            _messageService.ShowMessage("Game saved successfully.", MessageType.Info, useTimer: true);
+            _messageService.ShowMessage("Game saved successfully.", MessageType.Info);
         }
         private void UpdateUI()
         {
@@ -581,7 +670,7 @@ namespace Trader.Controls
             }
             catch (Exception ex)
             {
-                _messageService.ShowMessage($"Error saving game: {ex.Message}", MessageType.Error, useTimer: true);
+                _messageService.ShowMessage($"Error saving game: {ex.Message}", MessageType.Error);
             }
         }
     }

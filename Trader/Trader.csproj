@@ -89,6 +89,7 @@
     <Compile Include="Lib\Account.cs" />
     <Compile Include="Lib\BestScoreInfo.cs" />
     <Compile Include="Lib\BestScoreService.cs" />
+    <Compile Include="Lib\City.cs" />
     <Compile Include="Lib\Enums.cs" />
     <Compile Include="Lib\GameState.cs" />
     <Compile Include="Lib\Helper.cs" />
@@ -105,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TextStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +194,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="favicon %28basket%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\NewYork.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Amsterdam.png" />
+    <Resource Include="Assets\Images\Berlin.png" />
+    <Resource Include="Assets\Images\London.png" />
+    <Resource Include="Assets\Images\Milan.png" />
+    <Resource Include="Assets\Images\Paris.png" />
+    <Resource Include="Assets\Images\Riga.png" />
+    <Resource Include="Assets\Images\Rome.png" />
+    <Resource Include="Assets\Images\Tokyo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Sydney.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

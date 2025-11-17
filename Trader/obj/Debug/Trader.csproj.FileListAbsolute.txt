@@ -7,6 +7,7 @@ C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Trader.csproj.As
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Controls\MainControl.baml
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Styles\BorderStyles.baml
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Styles\ButtonStyles.baml
+C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Styles\TextStyles.baml
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Controls\GameControl.g.cs
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Controls\MainControl.g.cs
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\MainWindow.g.cs

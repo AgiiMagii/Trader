@@ -1,252 +1,81 @@
 {
-  "PlayerBalance": 2385.1432000000004,
-  "Inventory": [
-    {
-      "Name": "Pomegranate",
-      "Price": 0.0,
-      "Quantity": 1,
-      "Freshness": 1,
-      "TicksToExpire": 1,
-      "ImagePath": "/Assets/Images/Pomegranate.png",
-      "Type": 5,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Fish",
-      "Price": 0.0,
-      "Quantity": 2,
-      "Freshness": 2,
-      "TicksToExpire": 2,
-      "ImagePath": "/Assets/Images/Fish.png",
-      "Type": 1,
-      "MaxDemand": 2147483647
-    }
-  ],
+  "PlayerBalance": 2415.2436000000002,
+  "Inventory": [],
   "CityOffers": [
     {
-      "Name": "Fish",
-      "Price": 19.50,
-      "Quantity": 0,
-      "Freshness": 2,
-      "TicksToExpire": 2,
-      "ImagePath": "/Assets/Images/Fish.png",
-      "Type": 1,
-      "MaxDemand": 9
-    },
-    {
-      "Name": "Pomegranate",
-      "Price": 82.02,
-      "Quantity": 3,
-      "Freshness": 2,
-      "TicksToExpire": 3,
-      "ImagePath": "/Assets/Images/Pomegranate.png",
-      "Type": 5,
-      "MaxDemand": 0
-    },
-    {
-      "Name": "BreadPretzel",
-      "Price": 28.14,
-      "Quantity": 8,
-      "Freshness": 2,
-      "TicksToExpire": 2,
-      "ImagePath": "/Assets/Images/BreadPretzel.png",
-      "Type": 3,
-      "MaxDemand": 9
-    },
-    {
-      "Name": "Lemon",
-      "Price": 90.66,
-      "Quantity": 9,
-      "Freshness": 2,
-      "TicksToExpire": 2,
-      "ImagePath": "/Assets/Images/Lemon.png",
-      "Type": 8,
-      "MaxDemand": 2
-    },
-    {
       "Name": "Cheese",
-      "Price": 63.18,
-      "Quantity": 2,
+      "Price": 62.72,
+      "Quantity": 9,
       "Freshness": 2,
       "TicksToExpire": 3,
       "ImagePath": "/Assets/Images/Cheese.png",
       "Type": 0,
-      "MaxDemand": 4
+      "MaxDemand": 1
     },
     {
-      "Name": "Watermelon",
-      "Price": 99.30,
-      "Quantity": 6,
+      "Name": "Strawberry",
+      "Price": 98.83,
+      "Quantity": 5,
       "Freshness": 2,
       "TicksToExpire": 2,
-      "ImagePath": "/Assets/Images/Watermelon.png",
-      "Type": 10,
-      "MaxDemand": 2
+      "ImagePath": "/Assets/Images/Strawberry.png",
+      "Type": 11,
+      "MaxDemand": 8
+    },
+    {
+      "Name": "BreadPretzel",
+      "Price": 71.36,
+      "Quantity": 6,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Assets/Images/BreadPretzel.png",
+      "Type": 3,
+      "MaxDemand": 1
+    },
+    {
+      "Name": "Cherry",
+      "Price": 43.88,
+      "Quantity": 8,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Assets/Images/Cherry.png",
+      "Type": 7,
+      "MaxDemand": 3
+    },
+    {
+      "Name": "Pomegranate",
+      "Price": 79.99,
+      "Quantity": 3,
+      "Freshness": 2,
+      "TicksToExpire": 2,
+      "ImagePath": "/Assets/Images/Pomegranate.png",
+      "Type": 5,
+      "MaxDemand": 1
+    },
+    {
+      "Name": "Passionfruit",
+      "Price": 52.52,
+      "Quantity": 5,
+      "Freshness": 2,
+      "TicksToExpire": 3,
+      "ImagePath": "/Assets/Images/Passionfruit.png",
+      "Type": 9,
+      "MaxDemand": 3
     }
   ],
   "ToRemove": [
     {
-      "Name": "BreadPretzel",
-      "Price": 0.0,
-      "Quantity": 7,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/BreadPretzel.png",
-      "Type": 3,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "BreadPretzel",
+      "Name": "Orange",
       "Price": 0.0,
       "Quantity": 4,
       "Freshness": 3,
       "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/BreadPretzel.png",
-      "Type": 3,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Passionfruit",
-      "Price": 0.0,
-      "Quantity": 1,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Passionfruit.png",
-      "Type": 9,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Strawberry",
-      "Price": 0.0,
-      "Quantity": 3,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Strawberry.png",
-      "Type": 11,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Cherry",
-      "Price": 0.0,
-      "Quantity": 6,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Cherry.png",
-      "Type": 7,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Strawberry",
-      "Price": 0.0,
-      "Quantity": 2,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Strawberry.png",
-      "Type": 11,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Watermelon",
-      "Price": 0.0,
-      "Quantity": 7,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Watermelon.png",
-      "Type": 10,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Fish",
-      "Price": 0.0,
-      "Quantity": 5,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Fish.png",
-      "Type": 1,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Strawberry",
-      "Price": 0.0,
-      "Quantity": 5,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Strawberry.png",
-      "Type": 11,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Lemon",
-      "Price": 0.0,
-      "Quantity": 4,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Lemon.png",
-      "Type": 8,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Cheese",
-      "Price": 0.0,
-      "Quantity": 2,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Cheese.png",
-      "Type": 0,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Fish",
-      "Price": 0.0,
-      "Quantity": 2,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Fish.png",
-      "Type": 1,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Fish",
-      "Price": 0.0,
-      "Quantity": 1,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Fish.png",
-      "Type": 1,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "CocaCola",
-      "Price": 0.0,
-      "Quantity": 2,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/CocaCola.png",
-      "Type": 4,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "Lemon",
-      "Price": 0.0,
-      "Quantity": 3,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/Lemon.png",
-      "Type": 8,
-      "MaxDemand": 2147483647
-    },
-    {
-      "Name": "CocaCola",
-      "Price": 0.0,
-      "Quantity": 3,
-      "Freshness": 3,
-      "TicksToExpire": 0,
-      "ImagePath": "/Assets/Images/CocaCola.png",
-      "Type": 4,
+      "ImagePath": "/Assets/Images/Orange.png",
+      "Type": 6,
       "MaxDemand": 2147483647
     }
   ],
   "SoldThisSession": {},
-  "CurrentCity": "Berlin",
-  "BestScore": 2424.14
+  "CurrentCity": "Paris",
+  "BestScore": 2440.13
 }
