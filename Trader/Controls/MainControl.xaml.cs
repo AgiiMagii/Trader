@@ -35,8 +35,8 @@ namespace Trader.Controls
             BestScoreInfo bestScoreInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<BestScoreInfo>(json);
             if (bestScoreInfo != null)
             {
-                BestScoreTextBlock.Text = bestScoreInfo.BestScore.ToString("F2");
-                BestPlayerTextBlock.Text = bestScoreInfo.GameName;
+                BestScoreTextBlock.Text = $"{bestScoreInfo.BestScore.ToString("F2")} €";
+                BestPlayerTextBlock.Text = $"(Game: {bestScoreInfo.GameName})";
             }
         } // Loads best score info from json which is kept up-to-date with other logic
         public void NewGame_Click(object sender, RoutedEventArgs e)
@@ -149,9 +149,16 @@ namespace Trader.Controls
                 mainButtonGrid.Visibility = Visibility.Visible;
                 SavedGamesOverlay.Visibility = Visibility.Collapsed;
             };
+            gameControl.SavedGamesRequested += () =>
+            {
+                LoadGamesList();
+                mainWindow.Content = this;
+                mainButtonGrid.Visibility = Visibility.Collapsed;
+                SavedGamesOverlay.Visibility = Visibility.Visible;
+            };
 
             mainWindow.Content = gameControl;
-        } // Helper to switch to GameControl with given state and save path
+        } // Helper to switch to GameControl with given state and save path. It also sets up the events for going back to main menu or saved games menu
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             SavedGamesOverlay.Visibility = Visibility.Collapsed;

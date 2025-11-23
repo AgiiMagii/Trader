@@ -25,9 +25,6 @@ namespace Trader.Lib
                 { MessageType.Error, Brushes.DarkRed }
             };
         }
-        /// Shows a message by creating a transient TextBlock and adding it to the panel.
-        /// Each message gets its own DispatcherTimer and will be removed after the interval.
-        /// Calls are marshalled to the UI thread automatically.
         public void ShowMessage(string message, MessageType messageType, bool useTimer = true, TimeSpan? duration = null)
         {
             if (_messagePanel == null) return;

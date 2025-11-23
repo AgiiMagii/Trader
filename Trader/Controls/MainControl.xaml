@@ -28,11 +28,12 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="Best score:" 
-                   FontSize="20" Foreground="White"
-                   VerticalAlignment="Top" />
+                   FontSize="25" Foreground="White"
+                   VerticalAlignment="Center" 
+                               Margin="0,0,10,0"/>
 
                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                        <TextBlock x:Name="BestScoreTextBlock" Text="0" FontSize="20" Foreground="White"/>
+                        <TextBlock x:Name="BestScoreTextBlock" Text="0" FontSize="25" FontWeight="ExtraBold" Foreground="White"/>
                         <TextBlock x:Name="BestPlayerTextBlock" Text="--" FontSize="20" Foreground="White"/>
                     </StackPanel>
                 </Grid>

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Forms;
 using Trader.Controls;
 
 namespace Trader
@@ -8,6 +9,7 @@ namespace Trader
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = (WindowState)FormWindowState.Maximized;
         }
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {

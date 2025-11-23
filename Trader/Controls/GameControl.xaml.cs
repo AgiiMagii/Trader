@@ -17,6 +17,7 @@ namespace Trader.Controls
     {
         public event Action GameOverTriggered;
         public event Action BackToMainMenuRequested;
+        public event Action SavedGamesRequested;
         public string CurrentSaveFilePath { get; set; }
         private MessageService _messageService;
         private string gameName = "";
@@ -672,6 +673,13 @@ namespace Trader.Controls
             {
                 _messageService.ShowMessage($"Error saving game: {ex.Message}", MessageType.Error);
             }
+        }
+        private void LoadGame_Click(object sender, RoutedEventArgs e)
+        {
+            SavedGamesRequested?.Invoke();
+            if (GameOverOverlay != null)
+                GameOverOverlay.Visibility = Visibility.Collapsed;
+
         }
     }
 }

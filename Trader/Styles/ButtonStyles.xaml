@@ -93,7 +93,7 @@
         </Setter>
     </Style>
     <Style x:Key="GlassButtonStyle" TargetType="Button">
-        <Setter Property="Foreground" Value="SlateGray"/>
+        <Setter Property="Foreground" Value="DarkSlateGray"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="12,6"/>
         <Setter Property="MinWidth" Value="110"/>
@@ -101,7 +101,8 @@
             <!-- translucent frosted base -->
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#80FFFFFF" Offset="0.0"/>
+
+                    <GradientStop Color="#90FFFFFF" Offset="0.0"/>
                     <!-- top light -->
                     <GradientStop Color="#30FFFFFF" Offset="0.7"/>
                     <!-- mid translucent -->
@@ -234,9 +235,9 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#80FFFFFF" Offset="0.0"/>
-                    <GradientStop Color="#40FFFFFF" Offset="0.5"/>
-                    <GradientStop Color="#20FFFFFF" Offset="1.0"/>
+                    <GradientStop Color="#C0FFFFFF" Offset="0.3"/>
+                    <GradientStop Color="#60FFFFFF" Offset="0.7"/>
+                    <GradientStop Color="#40FFFFFF" Offset="1.0"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -338,8 +339,8 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#C0FFFFFF" Offset="0.0"/>
-                    <GradientStop Color="#60FFFFFF" Offset="0.5"/>
+                    <GradientStop Color="#C0FFFFFF" Offset="0.3"/>
+                    <GradientStop Color="#60FFFFFF" Offset="0.7"/>
                     <GradientStop Color="#40FFFFFF" Offset="1.0"/>
                 </LinearGradientBrush>
             </Setter.Value>
@@ -353,13 +354,13 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#8033FF33" Offset="0.0"/>
-                    <GradientStop Color="#4033FF33" Offset="0.5"/>
-                    <GradientStop Color="#2033FF33" Offset="1.0"/>
+                    <GradientStop Color="#C0FFFFFF" Offset="0.3"/>
+                    <GradientStop Color="#60FFFFFF" Offset="0.7"/>
+                    <GradientStop Color="#40FFFFFF" Offset="1.0"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="#6033FF33"/>
+        <Setter Property="BorderBrush" Value="#40FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Padding" Value="8,4"/>
@@ -371,13 +372,13 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#80FF3333" Offset="0.0"/>
-                    <GradientStop Color="#40FF3333" Offset="0.5"/>
-                    <GradientStop Color="#20FF3333" Offset="1.0"/>
+                    <GradientStop Color="#C0FFFFFF" Offset="0.3"/>
+                    <GradientStop Color="#60FFFFFF" Offset="0.7"/>
+                    <GradientStop Color="#40FFFFFF" Offset="1.0"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="#60FF3333"/>
+        <Setter Property="BorderBrush" Value="#40FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Padding" Value="8,4"/>
