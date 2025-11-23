@@ -47,16 +47,20 @@ namespace Trader.Controls
         public void UpdateBalance()
         {
             BalanceBlock.Text = $"Balance: {account.GetBalance():F2}€";
+            if (CurrentSaveFilePath != null)
+            {
+                SaveGameStateToJson();
+            }
         }
         private void GetNewBestScore()
         {
-            if (account.GetBalance() > CurrentState.BestScore)
+            if (account.GetBalance() > double.Parse(BestScoreBlock.Text.Split(' ')[2].Trim('€')))
             {
                 CurrentState.BestScore = account.GetBalance();
+                _messageService.ShowMessage("New Best Score!", MessageType.Success);
             }
             BestScoreBlock.Text = $"Best Score: {CurrentState.BestScore:F2}€";
             SaveBestScoreInfo();
-            _messageService.ShowMessage("New Best Score!", MessageType.Success);
         }
         public void SaveBestScoreInfo()
         {
@@ -88,7 +92,32 @@ namespace Trader.Controls
                 ChangeConditionAndTick();
             }
             txtMessage.Text = "";
-            _messageService.ShowMessage($"You traveled to {CityLabel.Content}.", MessageType.Info);
+            RollCityEvents();
+            if (RollCityEvents().Count > 0)
+            {
+                foreach (var cityEvent in RollCityEvents())
+                {
+                    
+                    if (cityEvent.BalanceChange != 0)
+                    {
+                        if (cityEvent.BalanceChange > 0)
+                        {
+                            account.IncreaseBalance(cityEvent.BalanceChange);
+                            _messageService.ShowMessage(cityEvent.Description, MessageType.Success);
+                        }
+                        else
+                        {
+                            account.DecreaseBalance(-cityEvent.BalanceChange);
+                            _messageService.ShowMessage(cityEvent.Description, MessageType.Error);
+                        }
+                        UpdateBalance();
+                    }
+                }
+            }
+            else
+            {
+                _messageService.ShowMessage($"You traveled to {CityLabel.Content}.", MessageType.Info);
+            }
             CheckPlayerBalance();
         }
         private void UpdateOfferButtonUI(Button btn, Product product) //aizpildam offer pogas saturu
@@ -164,7 +193,7 @@ namespace Trader.Controls
                     else if (newQty == maxSell)
                     {
                         txtMessage.Text =
-                            $"You are at the max amount the city wants ({maxSell}).";
+                            $"You are at the max amount the city wants {maxSell}.";
                     }
                     else // newQty > maxSell
                     {
@@ -178,7 +207,6 @@ namespace Trader.Controls
                     }
                 }
             }
-
             CountTotalCost();
             UpdateTotalSellPriceDisplay();
         }
@@ -265,57 +293,6 @@ namespace Trader.Controls
             }
             return discountedPrice;
         }
-        //private void ChangeConditionAndTick()
-        //{
-        //    // Use the class-level toRemove (clear it for this tick)
-        //    toRemove.Clear();
-
-        //    // Iterate over a snapshot so removing items from inventory is safe
-        //    foreach (var invProduct in inventory.ToList())
-        //    {
-        //        // decrement ticks
-        //        invProduct.TicksToExpire--;
-
-        //        if (invProduct.TicksToExpire <= 0)
-        //        {
-        //            switch (invProduct.Freshness)
-        //            {
-        //                case Freshness.Fresh:
-        //                    invProduct.Freshness = Freshness.Normal;
-        //                    invProduct.TicksToExpire = random.Next(1, 4);
-        //                    break;
-
-        //                case Freshness.Normal:
-        //                    invProduct.Freshness = Freshness.Expired;
-        //                    invProduct.TicksToExpire = random.Next(1, 3);
-        //                    break;
-
-        //                case Freshness.Expired:
-        //                    invProduct.Freshness = Freshness.Rotten;
-        //                    // mark for removal after iteration
-        //                    toRemove.Add(invProduct);
-        //                    break;
-        //            }
-
-        //            if (invProduct.Freshness == Freshness.Rotten)
-        //            {
-        //                invProduct.TicksToExpire = 0;
-        //                _messageService.ShowMessage($"Oh, no! Your {invProduct.Name} has been thrown away.", MessageType.Error, useTimer: true);
-        //            }
-        //            else if (invProduct.Freshness == Freshness.Expired)
-        //            {
-        //                _messageService.ShowMessage("You have some old stuff in your inventory.", MessageType.Warning, useTimer: true);
-        //            }
-        //        }
-        //    }
-
-        //    // Remove rotten items that were collected in the class-level list
-        //    foreach (var item in toRemove.ToList())
-        //    {
-        //        inventory.Remove(item);
-        //    }
-        //    UpdateInventoryUI();
-        //}
         private void ChangeConditionAndTick()
         {
             toRemove.Clear();
@@ -481,7 +458,7 @@ namespace Trader.Controls
                         txt2.Text = $"x {product.Quantity.ToString()}";
                         txt.Text = $"{product.Price:F2}€";
                         btn.Tag = product;
-                        btn.IsEnabled = product.Quantity > 0; // ja produkta daudzums ir 0, poga tiek atspējota
+                        /*btn.IsEnabled = product.Quantity > 0 || inventory.Contains(product);*/ // ja produkta daudzums ir 0, poga tiek atspējota
 
                         break;
                     }
@@ -645,7 +622,6 @@ namespace Trader.Controls
                 BestScore = BestScoreBlock.Text.Contains(":") ? double.Parse(BestScoreBlock.Text.Split(':')[1].Trim().Replace("€", "")) : 0
             };
             File.WriteAllText(CurrentSaveFilePath, JsonConvert.SerializeObject(gameState, Formatting.Indented));
-            _messageService.ShowMessage("Game saved successfully.", MessageType.Info);
         }
         private void UpdateUI()
         {
@@ -668,6 +644,7 @@ namespace Trader.Controls
             try
             {
                 SaveGameStateToJson();
+                _messageService.ShowMessage("Game saved successfully.", MessageType.Info);
             }
             catch (Exception ex)
             {
@@ -680,6 +657,37 @@ namespace Trader.Controls
             if (GameOverOverlay != null)
                 GameOverOverlay.Visibility = Visibility.Collapsed;
 
+        }
+        private void StartOver_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameOverOverlay != null)
+                GameOverOverlay.Visibility = Visibility.Collapsed;
+            CurrentState = new GameState();
+            UpdateUI();
+        }
+        private List<CityEvent> RollCityEvents()
+        {
+            List<CityEvent> possibleEvents = CityEventLibrary.GetCityEvents();
+            List<CityEvent> triggeredEvents = new List<CityEvent>();
+
+            triggeredEvents.AddRange(
+                possibleEvents
+                    .Where(e => e.IsRegularEvent && account.GetBalance() >= e.MinBalanceThreshold)
+            );
+
+            var irregularCandidates = possibleEvents
+                .Where(e => !e.IsRegularEvent
+                            && account.GetBalance() >= e.MinBalanceThreshold
+                            && random.NextDouble() <= e.Probability)
+                .ToList();
+
+            if (irregularCandidates.Count > 0)
+            {
+                var selected = irregularCandidates[random.Next(irregularCandidates.Count)];
+                triggeredEvents.Add(selected);
+            }
+
+            return triggeredEvents;
         }
     }
 }

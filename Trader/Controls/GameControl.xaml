@@ -544,8 +544,13 @@
                            HorizontalAlignment="Center"/>
 
                 <Button Content="Back to Main Menu"
-                        Width="200" Height="50"
+                        Style="{StaticResource ButtonStyle1}"
+                        Height="60" Width="300" FontSize="25" Margin="0,10"
                         Click="BackToMainMenu_Click"/>
+                <Button Content="Start Over"
+                        Style="{StaticResource ButtonStyle1}"
+                        Height="60" Width="300" FontSize="25" Margin="0,10"
+                        Click="StartOver_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

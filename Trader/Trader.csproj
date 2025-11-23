@@ -90,6 +90,8 @@
     <Compile Include="Lib\BestScoreInfo.cs" />
     <Compile Include="Lib\BestScoreService.cs" />
     <Compile Include="Lib\City.cs" />
+    <Compile Include="Lib\CityEvent.cs" />
+    <Compile Include="Lib\CityEventLibrary.cs" />
     <Compile Include="Lib\Enums.cs" />
     <Compile Include="Lib\GameState.cs" />
     <Compile Include="Lib\Helper.cs" />
