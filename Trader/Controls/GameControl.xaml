@@ -63,14 +63,7 @@
                         <!-- London -->
                         <Button Name="London" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/London.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/London.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="London" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -79,14 +72,7 @@
                         <!-- Riga -->
                         <Button Name="Riga" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Riga.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Riga.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Rīga" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -95,14 +81,7 @@
                         <!-- Amsterdam -->
                         <Button Name="Amsterdam" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Amsterdam.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Amsterdam.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Amsterdam" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -111,14 +90,7 @@
                         <!-- Berlin -->
                         <Button Name="Berlin" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Berlin.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Berlin.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Berlin" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -127,14 +99,7 @@
                         <!-- Milan -->
                         <Button Name="Milan" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Milan.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Milan.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Milan" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -143,14 +108,7 @@
                         <!-- Paris -->
                         <Button Name="Paris" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Paris.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Paris.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Paris" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -159,14 +117,7 @@
                         <!-- Tokyo -->
                         <Button Name="Tokyo" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Tokyo.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Tokyo.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Tokyo" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -175,14 +126,7 @@
                         <!-- Rome -->
                         <Button Name="Rome" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Rome.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Rome.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Rome" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -191,14 +135,7 @@
                         <!-- Sydney -->
                         <Button Name="Sydney" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/Sydney.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/Sydney.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="Sydney" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -207,14 +144,7 @@
                         <!-- New York -->
                         <Button Name="NewYork" Style="{StaticResource GlassButtonStyle}" Click="CityButton_Click" Margin="4" Width="140" Height="140">
                             <Grid>
-                                <Image Source="/Assets/Images/NewYork.png" Width="130" Height="130">
-                                    <Image.OpacityMask>
-                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                                            <GradientStop Color="Black" Offset="0"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
+                                <Image Source="/Assets/Images/NewYork.png" Style="{StaticResource CityImageStyle}"/>
                                 <TextBlock Text="New York" Foreground="White" FontWeight="Bold" FontSize="15"
                            HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -253,73 +183,46 @@
 
                     <!-- Pogu tīkls pa virsu -->
                     <Grid VerticalAlignment="Bottom" Margin="10">
-                        <UniformGrid Rows="2" Columns="3" x:Name="OfferGrid" Margin="10"
-                     Panel.ZIndex="1">
-                            <Button x:Name="ProductButton1" Tag="btn" Margin="5" 
-                    Style="{StaticResource GlassButtonStyle}" FontSize="20"
-                    Click="ProductButton_Click">
+                        <UniformGrid Rows="2" Columns="3" x:Name="OfferGrid" Margin="10" Panel.ZIndex="1">
+                            <Button x:Name="ProductButton1" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
                                 <StackPanel>
                                     <TextBlock x:Name="ProductQuantity1"/>
-                                    <Image x:Name="ProductImage1" Stretch="Uniform" MaxWidth="120" MaxHeight="120">
-                                        <Image.Effect>
-                                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
-                                        </Image.Effect>
-                                    </Image>
+                                    <Image x:Name="ProductImage1" Style="{StaticResource ProductImageStyle}"/>
                                     <TextBlock x:Name="ProductPrice1" Text="0.00 €" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="ProductButton2" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
                                 <StackPanel>
                                     <TextBlock x:Name="ProductQuantity2"/>
-                                    <Image x:Name="ProductImage2" Stretch="Uniform" MaxWidth="120" MaxHeight="120">
-                                        <Image.Effect>
-                                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
-                                        </Image.Effect>
-                                    </Image>
+                                    <Image x:Name="ProductImage2" Style="{StaticResource ProductImageStyle}"/>
                                     <TextBlock x:Name="ProductPrice2" Text="0.00 €" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="ProductButton3" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
                                 <StackPanel>
                                     <TextBlock x:Name="ProductQuantity3"/>
-                                    <Image x:Name="ProductImage3" Stretch="Uniform" MaxWidth="120" MaxHeight="120">
-                                        <Image.Effect>
-                                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
-                                        </Image.Effect>
-                                    </Image>
+                                    <Image x:Name="ProductImage3" Style="{StaticResource ProductImageStyle}"/>
                                     <TextBlock x:Name="ProductPrice3" Text="0.00 €" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="ProductButton4" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
                                 <StackPanel>
                                     <TextBlock x:Name="ProductQuantity4"/>
-                                    <Image x:Name="ProductImage4" Stretch="Uniform" MaxWidth="120" MaxHeight="120">
-                                        <Image.Effect>
-                                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
-                                        </Image.Effect>
-                                    </Image>
+                                    <Image x:Name="ProductImage4" Style="{StaticResource ProductImageStyle}"/>
                                     <TextBlock x:Name="ProductPrice4" Text="0.00 €" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="ProductButton5" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
                                 <StackPanel>
                                     <TextBlock x:Name="ProductQuantity5"/>
-                                    <Image x:Name="ProductImage5" Stretch="Uniform" MaxWidth="120" MaxHeight="120">
-                                        <Image.Effect>
-                                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
-                                        </Image.Effect>
-                                    </Image>
+                                    <Image x:Name="ProductImage5" Style="{StaticResource ProductImageStyle}"/>
                                     <TextBlock x:Name="ProductPrice5" Text="0.00 €" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="ProductButton6" Tag="btn" Margin="5" Style="{StaticResource GlassButtonStyle}" FontSize="20" Click="ProductButton_Click">
                                 <StackPanel>
                                     <TextBlock x:Name="ProductQuantity6"/>
-                                    <Image x:Name="ProductImage6" Stretch="Uniform" MaxWidth="120" MaxHeight="120">
-                                        <Image.Effect>
-                                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
-                                        </Image.Effect>
-                                    </Image>
+                                    <Image x:Name="ProductImage6" Style="{StaticResource ProductImageStyle}"/>
                                     <TextBlock x:Name="ProductPrice6" Text="0.00 €" HorizontalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
@@ -330,105 +233,49 @@
 
             <!-- TradingGrid -->
 
-            <Border Grid.Column="2"
-        Background="#80D3D3D3"
-        Margin="5"
-        Style="{StaticResource BorderStyle1}">
+            <Border Grid.Column="2" Background="#80D3D3D3" Margin="5" Style="{StaticResource BorderStyle1}">
 
                 <Grid x:Name="TradingGrid" Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
                         <!-- Product name -->
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
                         <!-- Quantity controls -->
                         <RowDefinition Height="100"/>
                         <!-- Messages -->
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
                         <!-- Prices -->
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
                         <!-- Buy Sell Buttons -->
                     </Grid.RowDefinitions>
 
                     <!-- Product name -->
-                    <Label Grid.Row="0"
-               x:Name="lblProductName"
-               FontSize="30"
-               FontWeight="Bold"
-               HorizontalAlignment="Center"
-               Margin="0,10,0,10"/>
+                    <Label Grid.Row="1" x:Name="lblProductName" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10"/>
 
                     <!-- Quantity controls -->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                        <Button Content="−"
-                    Style="{StaticResource GlassSmallButton}"
-                                FontSize="22"
-                    Width="40"
-                    Height="40"
-                    Margin="5"
-                    Click="QuantityButton_Click"/>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                        <Button Content="−" Style="{StaticResource GlassSmallButton}" FontSize="22" Width="40" Height="40" Margin="5" Click="QuantityButton_Click"/>
 
-                        <Label x:Name="lblQuantity"
-                   Content="0"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   Width="80"
-                   Height="40"
-                   Background="White"
-                   BorderBrush="Gray"
-                   BorderThickness="1"
-                   Margin="5"/>
+                        <Label x:Name="lblQuantity" Content="0" FontSize="22" FontWeight="Bold"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="80" Height="40" Background="White" BorderBrush="Gray"
+                   BorderThickness="1" Margin="5"/>
 
-                        <Button Content="+"
-                    Style="{StaticResource GlassSmallButton}"
-                                FontSize="22"
-                    Width="40"
-                    Height="40"
-                    Margin="5"
-                    Click="QuantityButton_Click"
-                                />
+                        <Button Content="+" Style="{StaticResource GlassSmallButton}" FontSize="22" Width="40" Height="40" Margin="5" Click="QuantityButton_Click"/>
                     </StackPanel>
 
                     <!-- Messages -->
-                    <Grid Grid.Row="3" Width="200" Height="Auto">
+                    <Grid Grid.Row="0" Width="200" Height="Auto">
                         <WrapPanel  x:Name="MessagePanel" HorizontalAlignment="Center">
-                            <TextBlock 
-                                x:Name="txtMessage"
-                                Text=""
-                                TextWrapping="Wrap"
-                                FontSize="20"
-                                FontWeight="DemiBold"
-                                Foreground="Black"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,10"/>
-                            <TextBlock
-                                x:Name="txtMessage1"
-                                TextWrapping="Wrap"
-                                Text=""
-                                FontSize="20"
-                                FontWeight="DemiBold"
-                                Foreground="Black"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,10"/>
-                            <TextBlock
-                                x:Name="txtMessage2"
-                                TextWrapping="Wrap"
-                                Text=""
-                                FontSize="20"
-                                FontWeight="DemiBold"
-                                Foreground="Black"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,10"/>
+                            <TextBlock x:Name="txtMessage" Style="{StaticResource MessageTextStyle}" Text=""/>
+                            <TextBlock x:Name="txtMessage1" Style="{StaticResource MessageTextStyle}" Text=""/>
+                            <TextBlock x:Name="txtMessage2" Style="{StaticResource MessageTextStyle}" Text=""/>
+
                         </WrapPanel>
                     </Grid>
 
 
                     <!-- Prices -->
-                    <Grid Grid.Row="2" Margin="0,0,0,10">
+                    <Grid Grid.Row="3" Margin="0,0,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>

@@ -24,4 +24,3 @@ C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Trader.csproj.Co
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Trader.csproj.Up2Date
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Trader.exe
 C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Trader.pdb
-C:\Users\User\Documents\C_sharp\Darbini\Trader\Trader\obj\Debug\Trader.exe.config

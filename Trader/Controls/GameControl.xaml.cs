@@ -92,6 +92,7 @@ namespace Trader.Controls
                 ChangeConditionAndTick();
             }
             txtMessage.Text = "";
+            lblQuantity.Content = "0";
             RollCityEvents();
             if (RollCityEvents().Count > 0)
             {
